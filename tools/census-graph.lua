@@ -55,23 +55,42 @@ for _, file in ipairs(files) do
         return a[2] > b[2]
       end)
       local stack = {}
+      local covered = 0
+      local cov_end = 0
       for _, sp in ipairs(spans) do
         while #stack > 0 and stack[#stack][2] <= sp[1] do
           stack[#stack] = nil
         end
         local top = stack[#stack]
-        if top and top[2] >= sp[2] and top[3] ~= sp[3] then
-          local key = top[3] .. "\t" .. sp[3]
-          contain[key] = (contain[key] or 0) + 1
+        if top and top[2] >= sp[2] then
+          if top[3] ~= sp[3] then
+            contain[top[3] .. "\t" .. sp[3]] = (contain[top[3] .. "\t" .. sp[3]] or 0) + 1
+          end
+        else
+          -- no enclosing span: this span sits directly in plain prose
+          contain["(prose)\t" .. sp[3]] = (contain["(prose)\t" .. sp[3]] or 0) + 1
+        end
+        -- coverage union (spans sorted by start)
+        if sp[1] >= cov_end then
+          covered = covered + (sp[2] - sp[1])
+          cov_end = sp[2]
+        elseif sp[2] > cov_end then
+          covered = covered + (sp[2] - cov_end)
+          cov_end = sp[2]
         end
         stack[#stack + 1] = sp
       end
+      classes["(prose)"] = (classes["(prose)"] or 0) + (vim.fn.getfsize(file) - covered)
     end
   end
 end
 
 -- node colors from the live scheme (capture fallback like the editor)
 local function color_of(name)
+  if name == "(prose)" then
+    local n = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+    return n.fg and ("#%06x"):format(n.fg) or "#cccccc"
+  end
   local probe = name
   while probe do
     local h = vim.api.nvim_get_hl(0, { name = probe, link = false })
