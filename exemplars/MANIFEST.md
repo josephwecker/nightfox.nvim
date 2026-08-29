@@ -19,11 +19,23 @@ otherwise canonicalize; they render as their sources rendered.*
 | 09-tables-terminator | udon/v2/references/ref/terminator-table.md | tables + fences |
 | 10-prose-delegation | arch/AGENTIC-DELEGATION.md | long-form prose, blockquotes, emphasis-heavy |
 | 11-narrative-changelog | arch/vivarium/changelog/2026-07-28-03-… | narrative prose register |
-| 12-synthetic-all-features | (synthetic, this repo) | every construct: 3 fence langs, table, quote, tasks, links, footnote |
-| 13-synthetic-math | (synthetic, this repo) | minimal inline+display math |
-| 16-extended-syntax | (synthetic, this repo) | extended-markdown coverage probe: alignment tables, definition lists, footnotes, ==highlight==, sub/superscript, heading IDs, emoji shortcodes, autolinks, tasks, ruby fence. The P1 shot doubles as the capture-gap report: definition lists, highlight, sub/sup, heading IDs, shortcodes, and bare URLs are UNCAPTURED by the grammar today — exactly the nuance layer autocolors exists to facilitate (markdownguide.org/extended-syntax) |
+| 12-synthetic-all-features | (synthetic, this repo) | PROBE: every construct — 3 fence langs, table, quote, tasks, links, footnote |
+| 13-synthetic-math | (synthetic, this repo) | PROBE: minimal inline+display math |
+| 16-extended-syntax | (synthetic, this repo) | PROBE — extended-markdown coverage: alignment tables, definition lists, footnotes, ==highlight==, sub/superscript, heading IDs, emoji shortcodes, autolinks, tasks, ruby fence. The P1 shot doubles as the capture-gap report: definition lists, highlight, sub/sup, heading IDs, shortcodes, and bare URLs are UNCAPTURED by the grammar today — exactly the nuance layer autocolors exists to facilitate (markdownguide.org/extended-syntax) |
+| 17-footnotes-litreview | arch/asf/02-tst-core/lit-review/formal-bounds-on-implementation-speed → specification-bound-prior-art.md | footnotes at natural density (80 defs), ==highlight== used in anger, inline math, html span |
+| 18-aligned-tables-arxiv | ops/Recent_arXiv_papers_on_AI_alignment_welfare_and_agentic_systems.md | real alignment-spec table, 151 rows, links in cells |
+| 19-notation-tables-math | arch/asf/NOTATION.md | math-inside-tables at reference density |
 | 14-code-lua-kinship.lua | this repo, lua/nightfox/kinship.lua | plain code buffer (lua), comment-heavy |
 | 15-code-lua-color.lua | this repo, lua/nightfox/lib/color.lua | plain code buffer (lua), logic-heavy |
+
+## Probes vs. exemplars (Joseph, 2026-08-28)
+
+The synthetics (12, 13, 16) are **coverage probes** — "is construct X
+captured?" — and are **excluded from visual-coherence judgment**: a
+1-of-everything page has no representative densities, so it renders as "a
+bowl of jellybeans" under any scheme; there is no field for the figure to
+stand against. Aesthetic verdicts come only from the real-density exemplars
+(01–11, 17–19 for prose/markdown; 14–15 for code).
 
 ## Taking a comparison set
 
