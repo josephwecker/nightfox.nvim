@@ -193,6 +193,13 @@ Rust engine remains the Obsidian PoC, not the upstream of this.
 
 ## Open questions
 
+- **Allocation stability across census regens**: allocated identity hues
+  re-solve when the census changes (observed: italic green→coral when gate
+  classes entered the adjacency graph). Name-is-seed holds for a fixed
+  census; the census is effectively part of the seed. Decide whether that's
+  correct (the scheme tracks the corpus) or whether identities should pin
+  once ratified.
+
 - ~~Parser installation strategy~~ **Resolved 2026-08-28** (Joseph: "feel free
   to install parsers / treesitters / lsp"): nvim-treesitter main branch
   vendored per cos convention (pack/cos/start, pinned @ 8b98b44, VENDORED

@@ -370,6 +370,33 @@ function M.generate(spec)
     end
   end
 
+  -- 6.6) gates, generally: fork-added delimiter captures render as the
+  -- DULLED KIN of the family they open (math $, strong **, italic *,
+  -- strikethrough ~~, code-span `). Contrast from their measured census
+  -- stats where present (glyph-floor recede falls out of frequency);
+  -- hue/chroma follow the host identity.
+  local GATE_HOSTS = {
+    ["@punctuation.delimiter.math"] = "@markup.math",
+    ["@punctuation.delimiter.strong"] = "@markup.strong",
+    ["@punctuation.delimiter.italic"] = "@markup.italic",
+    ["@punctuation.delimiter.strikethrough"] = "@markup.strikethrough",
+    ["@punctuation.delimiter.raw"] = "@markup.raw",
+  }
+  for gate, host in pairs(GATE_HOSTS) do
+    local hostp = placed[host]
+    if hostp then
+      local r = rng(seed_from(scheme_seed .. "\0" .. gate))
+      local stats = CENSUS.classes[gate]
+      local target = stats and contrast_from_stats(stats) or 2.6
+      local cscale = math.min(math.max(target / 6.5, 0.45), 1.1)
+      placed[gate] = {
+        c = { h = (hostp.c.h + jit(r) * 5) % 360, C = hostp.c.C * cscale, L = 0.7 },
+        fam_root = host,
+        target = target,
+      }
+    end
+  end
+
   -- 7) solve lightness per node against the actual bg; emit
   for name, p in pairs(placed) do
     local target = 1 + (p.target - 1) * p_contrast
