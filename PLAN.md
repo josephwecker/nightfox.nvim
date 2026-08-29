@@ -170,8 +170,17 @@ Rust engine remains the Obsidian PoC, not the upstream of this.
 - **P3 — generator v1**: lynx schemes as generated extensions of the fox
   anchors; widened spec (tree, not 20 slots); WCAG/APCA contrast solving;
   stochastic variation under the name-seed.
-- **P4 — sibling schemes**: math first (install latex parser), then fence
-  languages; block-bg contract with the render-markdown fork (cos-side).
+- **P4 — sibling schemes** *(next major milestone; scoped 2026-08-28 by
+  verdict #7)*: math first — the current latex-kin monochrome block is
+  replaced by the real design: the full latex capture set placed by the
+  kinship machinery against the SIBLING fox's anchors (assignment map:
+  math → designated fox; hash fallback for unlisted languages), contrast
+  solved vs the block's bg. Includes a fork latex after-query capturing
+  text-mode (`\text{}`) content explicitly — the runtime query marks it
+  @none ("clear"), which is why it leaks host-prose today. Then fence
+  languages by the same mechanism; block-bg contract with the
+  render-markdown fork (cos-side). Also here: wire the cos pack to this
+  fork so Joseph's live editor and the camera agree.
 - **P5 — fitness**: the 2011 four criteria + composition budget as measured
   functions over census data; density-adaptive allocation; A/B against P3.
 - **Beyond**: contextual emphasis (activity modes), other emission targets —
