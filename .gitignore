@@ -4,3 +4,5 @@ test/plenary
 panvimdoc
 .direnv
 .repro
+exemplars/shots/*
+!exemplars/shots/nightfox-p1-baseline/

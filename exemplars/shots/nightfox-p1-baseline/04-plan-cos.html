@@ -1,0 +1,281 @@
+<!-- vim: set nomodeline: -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/Users/josephwecker-v2/src/nightfox.nvim/exemplars/04-plan-cos.md</title>
+<meta name="colorscheme" content="nightfox"></meta>
+<style>
+* {font-family: "SF Mono","Menlo","Monaco","Courier New","monospace",monospace}
+body {background-color: #192330; color: #cdcecf}
+.-markup-list {color: #7ad5d6}
+.-markup-list-unchecked {color: #dbc074}
+.-spell {}
+.Special {color: #86abdc}
+.-string-escape {font-weight: bold; color: #e0c989}
+.Title {font-weight: bold; color: #86abdc}
+.-markup-link {font-weight: bold; color: #9d79d6}
+.-markup-raw {font-style: italic; color: #63cdcf}
+.-nospell {}
+.-markup-strong {font-weight: bold; color: #ab435d}
+.-conceal {}
+.-punctuation-special {color: #7ad5d6}
+.Italic {font-style: italic}
+</style>
+</head>
+<body style="display: flex">
+<pre>
+<span class="Title"># <span class="-spell">COS — plan &amp; working tracker</span>
+</span>
+<span class="-spell"><span class="Italic"><span class="-conceal">*</span>cos, cotis (Lat.)<span class="-conceal">*</span></span><span class="-string-escape">  
+</span>: whetstone.<span class="-string-escape">  
+</span>: The program for Joseph's tooling &amp; HCI refresh. To continually sharpen the saw.</span>
+
+<span class="Title">## <span class="-spell">This Document / Plan</span>
+</span>
+<span class="-spell">Seeded 2026-08-26 from the infra-archaeology session (old repos in <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/src/_older/<span class="-conceal">`</span></span></span>, chiefly <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>infra/<span class="-conceal">`</span></span></span> = josephwecker/infrastructure, frozen Nov 2018).</span>
+
+<span class="-markup-list">- </span><span class="-spell">It is currently the primary bootstrapping and migration plan AND tracker.</span>
+<span class="-markup-list">- </span><span class="-spell">Agent decisions should be marked as such to distinguish provenance &amp; assumptions.</span>
+
+<span class="Title">## <span class="-spell">Aims &amp; principles</span>
+</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>The editor's job in 2026<span class="-conceal">*</span><span class="-conceal">*</span></span>: agents write most code; Joseph writes markdown — briefs, specs, notes, edits-in-dialogue — plus configs and quick edits. Optimize for that workload, not the 2016 full-time-programmer one. (Reading/navigating agent-written code is a real secondary use; heavy IDE machinery is not the starting point.)</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Muscle memory is the floor.<span class="-conceal">*</span><span class="-conceal">*</span></span> Existing reflexes are ported or deliberately replaced — never silently displaced. New capabilities get logged in SHARPEN.md for memorization / habit-tracking. (Earlier Neovim effort lesson: don't land more than muscle memory can absorb.)</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Any fresh Linux machine reaches &quot;feels like home&quot; in one command.<span class="-conceal">*</span><span class="-conceal">*</span></span> This is what bashrc_dispatch + deploy-* delivered in the old world and what has been silently blocking the LLM training boxes. chezmoi is the carrier.</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Invest in permanent, principled artifacts<span class="-conceal">*</span><span class="-conceal">*</span></span> over rented platform effort (the Obsidian wasm-plugin lesson). Prefer the artifact other tools can also consume (e.g. a treesitter grammar) over the platform-captive one.</span>
+
+
+<span class="Title">## <span class="-spell">Ordered tasks</span>
+</span>
+<span class="-spell"><span class="Italic"><span class="-conceal">*</span>(First unfinished on top. Finishing any implies properly committed and repeatable, deployed locally, dotfiles and zsh updated, and entries in [<span class="-markup-link">[</span><span class="-nospell"><span class="Special">SHARPEN.md</span></span><span class="-markup-link">]</span>])<span class="-conceal">*</span></span></span>
+
+
+
+
+
+
+
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Editor: Navigation bindings walkthrough (JW+agent) — buffers/frames/tabs/panels idioms, then bind</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Archaeology: the non-easy remainder of <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>_older/<span class="-conceal">`</span></span></span> — explicatus (PIM/method
+<span class="-punctuation-special">  </span>    material for the inculcation work), mgt (beyond sharpen.md), autocolors
+<span class="-punctuation-special">  </span>    (the generator itself), sec/pw + secret-vault lineage, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.old-jwsys<span class="-conceal">`</span></span></span> configs
+<span class="-punctuation-special">  </span>    (unread), jaw.io, extrinsic. Infra's easy layer is what's actually done.</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Editor: REOPENED — markdown wysiwyg/preview (the agent researched, chose
+<span class="-punctuation-special">  </span>    render-markdown, and closed this unilaterally; Joseph's problem statement —
+<span class="-punctuation-special">  </span>    CSS-configurable styling reflected in export, and the live preview pane —
+<span class="-punctuation-special">  </span>    was not addressed and was not the agent's to close). render-markdown stays
+<span class="-punctuation-special">  </span>    installed as a provisional piece, not a resolution.</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Editor: quiet the markdown rendering (JW+agent, interactive): strip render-markdown default icons/
+<span class="-punctuation-special">  </span>    pills/bands to a quiet solarized-tuned minimum — keep structure rendering,
+<span class="-punctuation-special">  </span>    delete the carnival. (Joseph verdict on defaults: &quot;ok, not amazing&quot;; the
+<span class="-punctuation-special">  </span>    plugin is all flash, little principle — but fully strippable.)</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Editor: live preview pane — :w (or fswatch) → pandoc → HTML styled by OUR
+<span class="-punctuation-special">  </span>    stylesheet → auto-reloading pane/browser (editor left, render right).
+<span class="-punctuation-special">  </span>    Principled roll-our-own over markdown-preview.nvim's opaque server; the
+<span class="-punctuation-special">  </span>    stylesheet doubles as the future styled-PDF-export design (one design,
+<span class="-punctuation-special">  </span>    two outputs).</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Editor: fzf-native file jumping from inside nvim</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Editor: Prose-editing niceties (per-filetype wrap/breakindent polish)</span>
+
+
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Linux bootstrap acceptance test: throwaway VM → one command → home.</span>
+
+
+<span class="-punctuation-special">---
+</span>
+<span class="Title">## <span class="-spell">Topics</span>
+</span>
+<span class="Title">### <span class="-spell">Editor (neovim / neovide)</span>
+</span>
+<span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Decided<span class="-conceal">*</span><span class="-conceal">*</span></span> (Joseph, this session):</span>
+<span class="-markup-list">- </span><span class="-spell">Full refresh in <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>neovim + lua<span class="-conceal">*</span><span class="-conceal">*</span></span>. No vim backward-compatibility ballast — &quot;completely ditch the false backward-compatibility need for vim.&quot;</span>
+<span class="-markup-list">- </span><span class="-spell">Terminal (ghostty) / GUI behavior unification wherever available: one config, multiple faces.</span>
+<span class="-markup-list">- </span><span class="-spell">GUI: <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Neovide<span class="-conceal">*</span><span class="-conceal">*</span></span> is the primary candidate (active, ligature/font-shaping support, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--server<span class="-conceal">`</span></span></span> mode); <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>VimR<span class="-conceal">*</span><span class="-conceal">*</span></span> the mac-native fallback (also active as of 2026-04); Goneovim discontinued. The old <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>v<span class="-conceal">`</span></span></span>-into-one-app-window habit is a requirement: nvim <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--listen<span class="-conceal">`</span></span></span>/<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--remote-tab<span class="-conceal">`</span></span></span> + Neovide <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--server<span class="-conceal">`</span></span></span> reproduce it.</span>
+<span class="-markup-list">- </span><span class="-spell">No plugin distro; each plugin individually admitted (agent-proposed, drawn from Joseph's account of the failed distro-style attempt — unratified as a standing rule).</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>On trial<span class="-conceal">*</span><span class="-conceal">*</span></span> (2026-08-27, JW asked to land it): buffers-as-tabs (<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bufferline.nvim<span class="-conceal">`</span></span></span>) + netrw <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:Lexplore<span class="-conceal">`</span></span></span> as the left drawer; <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>v<span class="-conceal">`</span></span></span> uses <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--remote<span class="-conceal">`</span></span></span> (buffers, one tabpage) not <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--remote-tab<span class="-conceal">`</span></span></span>. Bindings still deferred to the walkthrough. Not a closed decision.</span>
+<span class="-markup-list">- </span><span class="-spell">Custom syntax lineage: the old jw syntaxes/forks were <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>patches against 2012-era deficiencies<span class="-conceal">*</span><span class="-conceal">*</span></span> — port only the still-live delta after checking what stock vim9/nvim+ treesitter now cover. Own-language syntaxes (udon, exptask, ragel-era…) survive on their own merits, pruned to what's still touched.</span>
+
+<span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Undecided<span class="-conceal">*</span><span class="-conceal">*</span></span>:</span>
+
+<span class="-markup-list">- </span><span class="-spell">Keymaps — deferred until a joint walkthrough of nvim/Neovide idioms for buffers, frames, tabs, side panels (old bindings were awkward on the MacBook keyboard; &quot;shoot straight to idiomatic or in-between&quot;). Format: comparative walkthrough vs. draft-and-tear-apart — Joseph to pick.</span>
+<span class="-markup-list">- </span><span class="-spell">Colors (trivial once the structure lands; old world solarized-light; own schemes murphytango/buttercream/cubdom/neutron and the many others available).</span>
+
+<span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Research<span class="-conceal">*</span><span class="-conceal">*</span></span>:</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>WYSIWYG<span class="-conceal">*</span><span class="-conceal">*</span></span>: Obsidian's biggest live affordance — cursor-line reverts to source, everything else renders, styling CSS-configurable and reflected in PDF export. Evaluate <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>render-markdown.nvim<span class="-conceal">`</span></span></span> / <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>markview.nvim<span class="-conceal">`</span></span></span> (same cursor-aware conceal interaction model) for the inline half; styled PDF export likely a separate pandoc/typst pipeline question. Not a deal-breaker either direction.</span>
+<span class="-markup-list">- </span><span class="-spell">Nerd-font glyph coverage in Neovide with VictorMono NFM / JuliaMono (expected fine — glyphs are in-font; verify live).</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Treesitter grammar for udon<span class="-conceal">*</span><span class="-conceal">*</span></span> — the principled successor to the Obsidian wasm plugin; serves nvim + any other treesitter consumer. (Existing vim syntax at <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/src/arch/firmatum/udon/ux/vim<span class="-conceal">`</span></span></span>.)</span>
+
+<span class="Title">### <span class="-spell">Shell &amp; zsh</span>
+</span>
+<span class="Title">#### <span class="-spell">Decided</span>
+</span>
+<span class="-markup-list">- </span><span class="-spell">zsh everywhere, including Linux boxes. The bashrc_dispatch <span class="Italic"><span class="-conceal">*</span>principle<span class="-conceal">*</span></span> carries
+<span class="-punctuation-special">  </span>forward (see Notes) — the bash implementation retires, not the idea.</span>
+<span class="-markup-list">- </span><span class="-spell">Factor <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshrc<span class="-conceal">`</span></span></span> into partials by concern (bashrc_dispatch's separation/isolation aspiration, reborn); cdpath/cd block first.</span>
+<span class="-markup-list">- </span><span class="-spell">Joseph's aliases win over omz collisions: <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>gl<span class="-conceal">`</span></span></span> = git log<span class="-conceal">*</span><span class="-conceal">*</span></span> (omz git plugin binds it to git pull — actively dangerous for his hands). Open sub-decision: shadow the collisions individually, or drop <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>plugins/git<span class="-conceal">`</span></span></span> and define only the aliases his hands actually know.</span>
+
+
+<span class="Title">#### <span class="-spell">Notes</span>
+</span>
+<span class="Title">##### <span class="-spell">How zsh+chezmoi superseding bashrc_dispatch (to be proven during migration):</span>  
+</span>
+<span class="-spell"><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc_dispatch<span class="-conceal">`</span></span></span> solves the following problems:</span>
+
+<span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Dispatch<span class="-conceal">*</span><span class="-conceal">*</span></span>
+bash sources <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.bashrc<span class="-conceal">`</span></span></span> / <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.bash_profile<span class="-conceal">`</span></span></span> / <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.profile<span class="-conceal">`</span></span></span> inconsistently across OS × login × interactive;
+the script normalized this into once/all/script/interactive/login files.
+zsh's file <span class="Italic"><span class="-conceal">*</span>order<span class="-conceal">*</span></span> is deterministic and OS-independent:</span>
+
+<span class="-markup-list">  - </span><span class="-spell"><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshenv<span class="-conceal">`</span></span></span>   (every zsh invocation, scripts included) →</span>
+  <span class="-markup-list">- </span><span class="-spell"><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zprofile<span class="-conceal">`</span></span></span> (login shells, before zshrc) →</span>
+  <span class="-markup-list">- </span><span class="-spell"><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshrc<span class="-conceal">`</span></span></span>    (interactive) →</span>
+  <span class="-markup-list">- </span><span class="-spell"><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zlogin<span class="-conceal">`</span></span></span>   (login shells, after zshrc — the &quot;echo Welcome&quot; slot)</span>
+
+<span class="-spell">Mapping: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc_all<span class="-conceal">`</span></span></span>≈<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshenv<span class="-conceal">`</span></span></span>, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc_interactive<span class="-conceal">`</span></span></span>≈<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshrc<span class="-conceal">`</span></span></span>, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc_login<span class="-conceal">`</span></span></span>≈<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zlogin<span class="-conceal">`</span></span></span>.
+<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc_script<span class="-conceal">`</span></span></span> has no dedicated slot (guard inside <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshenv<span class="-conceal">`</span></span></span> if ever needed).
+<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc_once<span class="-conceal">`</span></span></span> has no primitive; zsh's answer is idempotence instead — <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>typeset -U path<span class="-conceal">`</span></span></span>
+dedupes PATH so re-sourcing is harmless.</span>
+
+<span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Why the dispatch principle survives into zsh<span class="-conceal">*</span><span class="-conceal">*</span></span> (recognized 2026-08-26, after the
+agent faithfully reenacted the 2012 HN thread): zsh's four files are still
+<span class="Italic"><span class="-conceal">*</span>entry-point-dependent mechanism<span class="-conceal">*</span></span> — which of them runs is emulator/OS convention
+(macOS emulators launch every tab as a login shell; Linux emulators conventionally
+don't, so <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zprofile<span class="-conceal">`</span></span></span> silently never runs in a Linux tab; ghostty-on-Linux default
+unverified). The piecemeal fixes (idempotent <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshenv<span class="-conceal">`</span></span></span>, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>typeset -U path<span class="-conceal">`</span></span></span>, guards,
+emulator settings) are a dispatcher hand-unrolled across four files and maintained by
+memory. bashrc_dispatch's actual contribution was making the entry-point layer
+<span class="Italic"><span class="-conceal">*</span>irrelevant<span class="-conceal">*</span></span> (every entry file → one dispatcher that reconstructs truth from shell
+state: login? interactive? already-ran?) and exposing <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>intent-named<span class="-conceal">*</span><span class="-conceal">*</span></span> categories
+(once/all/script/interactive/login) so content placement never requires platform lore.
+Direction endorsed by Joseph (2026-08-26: <span class="Italic"><span class="-conceal">*</span>&quot;it would be just as easy to port it to a
+zsh-dispatch with all of the zsh affordances making it that much easier to implement
+correctly&quot;<span class="-conceal">*</span></span>): a zsh port of his bashrc_dispatch — all zsh entry files → one dispatcher
+(zsh gives direct state reads: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>[[ -o login ]]<span class="-conceal">`</span></span></span>, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>[[ -o interactive ]]<span class="-conceal">`</span></span></span>) → intent-named
+partials in <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/.config/zsh/<span class="-conceal">`</span></span></span>, which also gives the partials factoring its top-level
+structure. Open: whether it joins the public bashrc_dispatch lineage or stays private.</span>
+
+<span class="-spell">Implementation notes (2026-08-26 discussion):</span>
+<span class="-markup-list">- </span><span class="-spell">zgen/starship/mise/atuin/fzf don't conflict — none write to <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.zshrc<span class="-conceal">`</span></span></span>; they only need
+<span class="-punctuation-special">  </span>sourcing from the interactive partial (ordering constraints move intact).</span>
+<span class="-markup-list">- </span><span class="-spell">Symlinks (the 2012 bash implementation) are wrong here: installer <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>&gt;&gt; ~/.zshrc<span class="-conceal">`</span></span></span>
+<span class="-punctuation-special">  </span>appends would write <span class="Italic"><span class="-conceal">*</span>through<span class="-conceal">*</span></span> the symlink into the dispatcher. The unsolved 2012
+<span class="-punctuation-special">  </span>routing problem, addressed: <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>stub files<span class="-conceal">*</span><span class="-conceal">*</span></span> — <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/.zshrc<span class="-conceal">`</span></span></span> is a real 2-line file
+<span class="-punctuation-special">  </span>(source dispatcher + marker comment); installer appends land below the marker,
+<span class="-punctuation-special">  </span>keep working, show up as <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>chezmoi status<span class="-conceal">`</span></span></span> drift, and get harvested into the right
+<span class="-punctuation-special">  </span>partial by the <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>vc<span class="-conceal">`</span></span></span> close-ritual. Alternative: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>ZDOTDIR<span class="-conceal">`</span></span></span> (fully native, but
+<span class="-punctuation-special">  </span>non-respecting installers create a stray never-sourced <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/.zshrc<span class="-conceal">`</span></span></span> — silent
+<span class="-punctuation-special">  </span>breakage of their setup); the two compose if ever wanted.</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>New semantic context (Joseph)<span class="-conceal">*</span><span class="-conceal">*</span></span>: fork <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>agent<span class="-conceal">`</span></span></span> vs <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>human<span class="-conceal">`</span></span></span><span class="-conceal">*</span><span class="-conceal">*</span></span> interactive — a routing
+<span class="-punctuation-special">  </span>level bash-dispatch never had (agent shells want lean, prompt-tool-free startup;
+<span class="-punctuation-special">  </span>detection mechanism TBD — e.g. <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>$CLAUDECODE<span class="-conceal">`</span></span></span>-style env markers).</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Internal pre/post partials (Joseph)<span class="-conceal">*</span><span class="-conceal">*</span></span>: dispatcher-internal hooks bracketing the
+<span class="-punctuation-special">  </span>contexts, e.g. <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>zsh-dispatch/internal/post-all.zsh<span class="-conceal">`</span></span></span>.</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>ZDOTDIR: Joseph loves it.<span class="-conceal">*</span><span class="-conceal">*</span></span> Harvest designs floated: (a) a post-login hook that
+<span class="-punctuation-special">  </span>inspects <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/.zshrc<span class="-conceal">`</span></span></span> for new appends and interactively asks where each goes
+<span class="-punctuation-special">  </span>(&quot;all&quot; default / &quot;once&quot; / …); (b) simpler: appends auto-collected into
+<span class="-punctuation-special">  </span><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>zsh-dispatch/zshrc-harvest.zsh<span class="-conceal">`</span></span></span>, sourced by default (all vs. once — TBD), with a
+<span class="-punctuation-special">  </span><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>vc<span class="-conceal">`</span></span></span>-family command to file them properly later. Beyond immediate needs; parked.</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>vc<span class="-conceal">`</span></span></span> integrates with the dispatcher directly — making this an <span class="Italic"><span class="-conceal">*</span>installable helper<span class="-conceal">*</span></span>
+<span class="-punctuation-special">  </span>rather than bashrc_dispatch's file-and-readme, even if Joseph is its only user.</span>
+
+<span class="-markup-list">2. </span><span class="-spell"><span class="Italic"><span class="-conceal">*</span>Platform branching<span class="-conceal">*</span></span>: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>shell_is_osx<span class="-conceal">`</span></span></span>/<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>shell_is_linux<span class="-conceal">`</span></span></span>
+<span class="-punctuation-special">   </span>at runtime. chezmoi moves most of this to apply-time — <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>{{ if eq .chezmoi.os
+<span class="-punctuation-special">   </span>&quot;linux&quot; }}<span class="-conceal">`</span></span></span> templates render per-OS files — and the few genuinely dynamic
+<span class="-punctuation-special">   </span>cases keep a runtime <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>$OSTYPE<span class="-conceal">`</span></span></span> check. What bashrc_dispatch has that zsh
+<span class="-punctuation-special">   </span>lacks natively — nothing structural; what it <span class="Italic"><span class="-conceal">*</span>aspired to<span class="-conceal">*</span></span> (clean separation
+<span class="-punctuation-special">   </span>by concern) carries into the partials factoring above.</span>
+
+<span class="Title">###
+</span>
+<span class="Title">### <span class="-spell">Chezmoi &amp; Linux bootstrap</span>
+</span>
+<span class="-markup-list">- </span><span class="-spell">Target: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>chezmoi init --apply josephwecker<span class="-conceal">`</span></span></span> + one bootstrap hook = working environment on a fresh Linux box (the modern <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>deploy-*<span class="-conceal">`</span></span></span>).</span>
+<span class="-markup-list">- </span><span class="-spell">Needs: per-OS templating; tool-layer bootstrap (nvim, atuin, starship, mise, fzf, zsh via apt/brew — chezmoi <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>run_once_<span class="-conceal">`</span></span></span> scripts are the idiomatic slot); decide what is machine-local vs. universal.</span>
+<span class="-markup-list">- </span><span class="-spell">Relationship of dotfiles repo to cos (submodule? sibling?) — <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>undecided<span class="-conceal">*</span><span class="-conceal">*</span></span>; revisit when the plan stabilizes. (Precedent: explicatus was parent with infrastructure as a member.)</span>
+
+<span class="Title">### <span class="-spell">Obsidian trajectory</span>
+</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Freeze investment<span class="-conceal">*</span><span class="-conceal">*</span></span> (proposed, Joseph-aligned this session): no new plugins, no new vault machinery (<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>link-vault.sh<span class="-conceal">`</span></span></span> is a hand-rolled chezmoi-for-Obsidian and a recurring maintenance tax). Keep Obsidian for what it's genuinely best at (WYSIWYG editing, rendering, PDF export) while the nvim refresh gradually takes load-bearing editing. Long-term role is an empirical question answered by usage, not forced now.</span>
+<span class="-markup-list">- </span><span class="-spell">udon wasm plugin + csv plugin: superseded once the udon treesitter grammar exists.</span>
+
+<span class="Title">### <span class="-spell">Secrets (pw lineage)</span>
+</span>
+<span class="-markup-list">- </span><span class="-spell">Old artifacts: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>infra/bin/{pw,pw.rb}<span class="-conceal">`</span></span></span>, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>infra/sec/pw<span class="-conceal">`</span></span></span>, likely <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>explicatus/<span class="-conceal">`</span></span></span> secret-vault relative. Concept strong; implementation stale (old Google API).</span>
+<span class="-markup-list">- </span><span class="-spell">Research: revive vs. adopt — compare against <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>age<span class="-conceal">`</span></span></span>/<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>sops<span class="-conceal">`</span></span></span>/1Password-CLI/passkey-era tooling.</span>
+
+<span class="Title">### <span class="-spell">Archaeology (mining the _older repos)</span>
+</span>
+<span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Misc Notes / Context<span class="-conceal">*</span><span class="-conceal">*</span></span></span>
+
+<span class="-markup-list">- </span><span class="-spell">infra submodule reachability (<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>git submodule update --init<span class="-conceal">`</span></span></span>, 2026-08-26): 24/25 materialized — 10 at the 2018-recorded pins, 13 at upstream HEAD, 1 failed (<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>vim-ruby<span class="-conceal">`</span></span></span>, dead <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>git://<span class="-conceal">`</span></span></span> protocol; recoverable via<span class="-string-escape">  
+</span><span class="-punctuation-special">  </span><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>git config url.&quot;https://github.com/&quot;.insteadOf git://github.com/<span class="-conceal">`</span></span></span> if ever wanted). All own-repo submodules present: murphytango, neutron, prim, vimerl, vim-elixir.</span>
+<span class="-markup-list">- </span><span class="-spell">infra contains stale credentials (old GitHub token in <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>git/gitconfig-global<span class="-conceal">`</span></span></span>, plaintext OANDA keys in <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc/bashrc_once<span class="-conceal">`</span></span></span>, an id_rsa in <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.old-jwsys/<span class="-conceal">`</span></span></span>) — archival awareness only; nothing travels forward.</span>
+<span class="-markup-list">- </span><span class="-spell">Explicatus was the parent: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bashrc_once<span class="-conceal">`</span></span></span> paths (<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/explicatus/prj/infrastructure/...<span class="-conceal">`</span></span></span>) show infrastructure lived inside explicatus. Relevant precedent for cos's shape.</span>
+<span class="-markup-list">- </span><span class="-spell">Still to mine: explicatus (PIM/method material), mgt (sharpen-list, &quot;is it worth the time&quot; discipline — partially mined into SHARPEN.md), autocolors, murphytango, jaw.io, the <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>.old-jwsys<span class="-conceal">`</span></span></span> linux configs (unread so far).</span>
+<span class="-markup-list">- </span><span class="-spell">deploy-* scripts: likely to be superseded by chezmoi; deploy-bashrc read whole (n.b. it links <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/.bash*<span class="-conceal">`</span></span></span> → <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>../bash_dispatch/bashrc_dispatch<span class="-conceal">`</span></span></span> — a sibling-repo path, matching the parent-repo layout above).</span>
+
+<span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Research<span class="-conceal">*</span><span class="-conceal">*</span></span></span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-link">[</span><span class="-nospell"><span class="Special">need to list the actual most likely repos here</span></span><span class="-markup-link">]</span></span>
+
+
+<span class="-punctuation-special">---
+</span>
+<span class="Title">## <span class="-spell">Implementation Log</span>
+</span>
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-28 (autocolors session)<span class="-conceal">*</span><span class="-conceal">*</span></span> — nvim-treesitter vendored (third-ish
+<span class="-punctuation-special">  </span>admitted plugin; pack/cos/start, pinned @ 8b98b44 main, VENDORED file) as
+<span class="-punctuation-special">  </span><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>parser/query manager only<span class="-conceal">*</span><span class="-conceal">*</span></span> — no config, no modules; 15 parsers compiled
+<span class="-punctuation-special">  </span>(latex, yaml, python, ruby, rust, bash, sql, html, css, javascript, json,
+<span class="-punctuation-special">  </span>toml, regex, elixir, erlang) to <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/.local/share/nvim/site/parser/<span class="-conceal">`</span></span></span>. Driver:
+<span class="-punctuation-special">  </span>the autocolors work in <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>~/src/nightfox.nvim<span class="-conceal">`</span></span></span> (see its PLAN.md +
+<span class="-punctuation-special">  </span>markdown-census.md) — markdown math spans, fence languages, and yaml
+<span class="-punctuation-special">  </span>frontmatter now carry full injected capture streams. Note: parsers dir is
+<span class="-punctuation-special">  </span>machine-local (not chezmoi); reinstall via
+<span class="-punctuation-special">  </span><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>require(&quot;nvim-treesitter&quot;).install({...})<span class="-conceal">`</span></span></span> — candidate for a chezmoi
+<span class="-punctuation-special">  </span>run_once script when the Linux bootstrap lands.</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-28<span class="-conceal">*</span><span class="-conceal">*</span></span> — <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>v<span class="-conceal">`</span></span></span> from a new cwd with the drawer open: <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--remote<span class="-conceal">`</span></span></span> <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:drop<span class="-conceal">`</span></span></span> into a focused Lexplore window wipes it (<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bufhidden=wipe<span class="-conceal">`</span></span></span>) and <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:vnew<span class="-conceal">`</span></span></span>/<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:Lexplore<span class="-conceal">`</span></span></span>'s <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:new<span class="-conceal">`</span></span></span> left listed <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>[No Name]<span class="-conceal">`</span></span></span> buffers under <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>'hidden'<span class="-conceal">`</span></span></span>. Fix: one <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>CosVOpen<span class="-conceal">`</span></span></span> luaeval (edit in a non-netrw window, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>tcd<span class="-conceal">`</span></span></span>, reopen Lexplore if it vanished, wipe stray unnamed unshown buffers). Restart Neovide + new shell.</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-28<span class="-conceal">*</span><span class="-conceal">*</span></span> — Buffer-tab close keeps the window (JW): <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:Bd<span class="-conceal">`</span></span></span> / × / right- and middle-click call <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>CosBufferClose<span class="-conceal">`</span></span></span> (switch the file window to the next strip entry, then <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:bdelete<span class="-conceal">`</span></span></span>) so the netrw drawer does not go full-width. Bare <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:bd<span class="-conceal">`</span></span></span> / <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:bd!<span class="-conceal">`</span></span></span> cabbrev to <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:Bd<span class="-conceal">`</span></span></span>. Bufferline has no such closer of its own; <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>close_command<span class="-conceal">`</span></span></span> is a hook (docs point at bufdelete.nvim).</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-28<span class="-conceal">*</span><span class="-conceal">*</span></span> — Buffer-tab Cmd bindings (JW): ⌘1–9 → buffer-tab N (or last if fewer); ⌘L steps right and wraps; ⌘Y focuses the netrw drawer, opening <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:Lexplore<span class="-conceal">`</span></span></span> if closed, and returns to the file window from the drawer (does not close it). ⌘H parked — macOS Hide; Neovide 0.16.2 has no <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>system-hide-hotkey<span class="-conceal">`</span></span></span>. Hide-rebind via <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>NSUserKeyEquivalents<span class="-conceal">`</span></span></span> did not take; reverted.</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-27<span class="-conceal">*</span><span class="-conceal">*</span></span> — File drawer + buffers-as-tabs trial (JW asked to land it):
+<span class="-punctuation-special">  </span>vendored <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>bufferline.nvim<span class="-conceal">`</span></span></span> v4.9.1 (<span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>655133c<span class="-conceal">`</span></span></span>, pack/cos/start, VENDORED file)
+<span class="-punctuation-special">  </span>as the second admitted plugin; quiet config (no slant/diagnostics/filetype
+<span class="-punctuation-special">  </span>icons, no web-devicons). <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>v<span class="-conceal">`</span></span></span> switched <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--remote-tab<span class="-conceal">`</span></span></span> → <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>--remote<span class="-conceal">`</span></span></span> so files
+<span class="-punctuation-special">  </span>land as buffers in one tabpage; <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>CosVEnsureFileWindow<span class="-conceal">`</span></span></span> so a focused netrw
+<span class="-punctuation-special">  </span>drawer is not replaced. Netrw configured as <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:Lexplore<span class="-conceal">`</span></span></span> drawer (tree,
+<span class="-punctuation-special">  </span>banner off, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>&lt;CR&gt;<span class="-conceal">`</span></span></span> → previous window, <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>t<span class="-conceal">`</span></span></span> remapped to <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:badd<span class="-conceal">`</span></span></span> and stay).
+<span class="-punctuation-special">  </span>Last <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>v<span class="-conceal">`</span></span></span> still <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>:tcd<span class="-conceal">`</span></span></span>s the (single) tabpage to the shell cwd. Restart the
+<span class="-punctuation-special">  </span>listening Neovide once. Navigation bindings still deferred to the walkthrough.
+<span class="-punctuation-special">  </span><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>Trial, not a closed decision<span class="-conceal">*</span><span class="-conceal">*</span></span> — swap netrw→nvim-tree later if the strip
+<span class="-punctuation-special">  </span>feels right and the listing doesn't.</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-26 (night)<span class="-conceal">*</span><span class="-conceal">*</span></span> — Markdown WYSIWYG: research verdict — render-markdown.nvim
+<span class="-punctuation-special">  </span>is exactly the Obsidian interaction model (persistent inline render, cursor line
+<span class="-punctuation-special">  </span>raw via anti-conceal); markview.nvim drops rendering on cursor movement — wrong
+<span class="-punctuation-special">  </span>model. Vendored render-markdown as a native pack (pinned 4663eb3 2026-08-11,
+<span class="-punctuation-special">  </span>VENDORED file carries provenance; no plugin manager), default config, rendering
+<span class="-punctuation-special">  </span>verified (40 extmarks on PLAN.md headless). First deliberately-admitted plugin.
+<span class="-punctuation-special">  </span>Still open in Topics/Research: styled PDF export (pandoc/typst pipeline) — the
+<span class="-punctuation-special">  </span>half of Obsidian's affordance this doesn't cover.</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-26 (night)<span class="-conceal">*</span><span class="-conceal">*</span></span> — Shell wrap-up: cross-OS guards landed (locate→mdfind and
+<span class="-punctuation-special">  </span>_v_focus darwin-only; vc portable checksum; linuxbrew branch in env.zsh) — the
+<span class="-punctuation-special">  </span>partials are linux-safe by construction; only the VM acceptance test remains.
+<span class="-punctuation-special">  </span>finds/la/g/locate now covered on both OSes (la/g via omz, in dotfiles). Full omz
+<span class="-punctuation-special">  </span>alias audit (233): gl was the only muscle-memory collision (already shadowed);
+<span class="-punctuation-special">  </span>four git-aliases shadow brew-coreutils g-binaries (gpr/grm/gc/gcp → git
+<span class="-punctuation-special">  </span>pull-rebase/rm/commit/cherry-pick) — left in place, recorded so a surprise
+<span class="-punctuation-special">  </span><span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>gcp<span class="-conceal">`</span></span></span> has a known cause; command-not-found plugin likely inert on macOS
+<span class="-punctuation-special">  </span>(works on linux; harmless here).</span>
+
+<span class="-markup-list">- </span><span class="-spell"><span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>2026-08-26 (night, corrected next morning)<span class="-conceal">*</span><span class="-conceal">*</span></span> — **zsh config factoring built and</span>
+
+</pre>
+</body>
+</html>

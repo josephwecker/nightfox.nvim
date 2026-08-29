@@ -1,0 +1,103 @@
+<!-- vim: set nomodeline: -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/Users/josephwecker-v2/src/nightfox.nvim/exemplars/16-extended-syntax.md</title>
+<meta name="colorscheme" content="nightfox"></meta>
+<style>
+* {font-family: "SF Mono","Menlo","Monaco","Courier New","monospace",monospace}
+body {background-color: #192330; color: #cdcecf}
+.-markup-list {color: #7ad5d6}
+.-markup-list-unchecked {color: #dbc074}
+.-spell {}
+.-variable {color: #dfdfe0}
+.-keyword-function {color: #9d79d6}
+.Operator {color: #aeafb0}
+.-markup-strikethrough {text-decoration-line: line-through; color: #cdcecf}
+.Number {color: #f4a261}
+.String {color: #81b29a}
+.Function {color: #86abdc}
+.-punctuation-bracket {color: #aeafb0}
+.-punctuation-delimiter {color: #aeafb0}
+.Keyword {color: #9d79d6}
+.-variable-parameter {color: #7ad5d6}
+.-_label {}
+.Conditional {color: #baa1e2}
+.-punctuation-special {color: #7ad5d6}
+.-markup-raw-block {color: #d67ad2}
+.Title {color: #86abdc; font-weight: bold}
+.-markup-link-url {text-decoration-line: underline; color: #f6b079; font-style: italic}
+.-conceal {}
+.-markup-link {color: #9d79d6; font-weight: bold}
+.-_url {}
+.Special {color: #86abdc}
+.-nospell {}
+.-markup-raw {color: #63cdcf; font-style: italic}
+.-markup-list-checked {color: #81b29a}
+</style>
+</head>
+<body style="display: flex">
+<pre>
+<span class="Title"># <span class="-spell">Extended syntax exercise {#custom-id}</span>
+</span>
+<span class="Title">## <span class="-spell">Tables with alignment</span>
+</span>
+<span class="-punctuation-special">|</span> <span class="Title">left-aligned </span><span class="-punctuation-special">|</span> <span class="Title">centered </span><span class="-punctuation-special">|</span> <span class="Title">right-aligned </span><span class="-punctuation-special">|</span>
+<span class="-punctuation-special">|</span><span class="-punctuation-special">:-------------</span><span class="-punctuation-special">|</span><span class="-punctuation-special">:--------:</span><span class="-punctuation-special">|</span><span class="-punctuation-special">--------------:</span><span class="-punctuation-special">|</span>
+<span class="-punctuation-special">|</span> aa           <span class="-punctuation-special">|</span>    bb    <span class="-punctuation-special">|</span>            cc <span class="-punctuation-special">|</span>
+<span class="-punctuation-special">|</span> longer cell  <span class="-punctuation-special">|</span>  center  <span class="-punctuation-special">|</span>          1234 <span class="-punctuation-special">|</span>
+
+<span class="Title">## <span class="-spell">Definition lists</span>
+</span>
+<span class="-spell">First Term
+: This is the definition of the first term.</span>
+
+<span class="-spell">Second Term
+: One definition of the second term.
+: Another definition of the second term.</span>
+
+<span class="Title">## <span class="-spell">Footnotes</span>
+</span>
+<span class="-spell">Here's a simple footnote,<span class="-markup-link">[</span><span class="-nospell"><span class="Special">^1</span></span><span class="-markup-link">]</span> and here's a longer one.<span class="-markup-link">[</span><span class="-nospell"><span class="Special">^bignote</span></span><span class="-markup-link">]</span></span>
+
+<span class="-spell"><span class="-markup-link">[</span><span class="-nospell"><span class="Special">^1</span></span><span class="-markup-link">]</span>: This is the first footnote.
+<span class="-markup-link">[</span><span class="-nospell"><span class="Special">^bignote</span></span><span class="-markup-link">]</span>: Here's one with multiple paragraphs and code.</span>
+
+<span class="-markup-raw-block">    Indent paragraphs to include them in the footnote.
+
+</span><span class="Title">## <span class="-spell">Strikethrough, highlight, sub/superscript</span>
+</span>
+<span class="-spell"><span class="-markup-strikethrough"><span class="-conceal">~</span><span class="-markup-strikethrough"><span class="-conceal">~</span>The world is flat.<span class="-conceal">~</span></span><span class="-conceal">~</span></span> We now know it is ==very important== to write H<span class="-markup-strikethrough"><span class="-conceal">~</span>2<span class="-conceal">~</span></span>O
+and X^2^ correctly. E = mc^2^ either way.</span>
+
+<span class="Title">## <span class="-spell">Task lists</span>
+</span>
+<span class="-markup-list">- </span><span class="-markup-list-checked">[x]</span> <span class="-spell">Write the press release</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Update the website</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">Contact the media</span>
+
+<span class="Title">## <span class="-spell">Emoji shortcodes and literal</span>
+</span>
+<span class="-spell">Gone camping! :tent: Be back soon. That is so funny! :joy: (literal: 🏕️ 😂)</span>
+
+<span class="Title">## <span class="-spell">Automatic URL linking</span>
+</span>
+<span class="-spell">http://www.example.com and <span class="-markup-link-url"><span class="-nospell"><span class="-_url">&lt;https://v2.io&gt;</span></span></span> and not <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>http://in-code.example<span class="-conceal">`</span></span></span>.</span>
+
+<span class="Title">## <span class="-spell">Heading IDs referenced</span>
+</span>
+<span class="-spell"><span class="-markup-link"><span class="-_label">[</span></span><span class="-_label"><span class="Special">Jump to the top</span><span class="-markup-link">]</span><span class="-markup-link">(</span><span class="-markup-link"><span class="-_url"><span class="-markup-link-url"><span class="-nospell">#custom-id</span></span></span></span><span class="-markup-link">)</span></span>.</span>
+
+<span class="Title">## <span class="-spell">Fenced code with language (baseline for comparison)</span>
+</span>
+<span class="-markup-raw-block"><span class="-markup-raw-block">```</span><span class="Conditional"><span class="Conditional">ruby</span></span>
+<span class="-keyword-function">def</span> <span class="-variable"><span class="Function">greet</span></span><span class="-punctuation-bracket">(</span><span class="-variable"><span class="-variable-parameter">name</span></span><span class="-punctuation-delimiter">,</span> <span class="-variable"><span class="-variable-parameter">count</span></span><span class="Operator">:</span> <span class="Number">3</span><span class="-punctuation-bracket">)</span>
+  <span class="-variable">count</span><span class="-punctuation-delimiter">.</span><span class="-variable"><span class="Function">times</span></span> <span class="-punctuation-bracket">{</span> <span class="Operator"><span class="-punctuation-bracket">|</span></span><span class="-variable"><span class="-variable-parameter">i</span></span><span class="Operator"><span class="-punctuation-bracket">|</span></span> <span class="-variable"><span class="Function">puts</span></span> <span class="String">&quot;</span><span class="String">hello </span><span class="-punctuation-special">#{</span><span class="-variable">name</span><span class="-punctuation-bracket"><span class="-punctuation-special">}</span></span><span class="String"> #</span><span class="-punctuation-special">#{</span><span class="-variable">i</span><span class="-punctuation-bracket"><span class="-punctuation-special">}</span></span><span class="String">&quot;</span> <span class="-punctuation-bracket">}</span>
+  <span class="-punctuation-bracket">{</span> <span class="Special">ok</span><span class="Operator"><span class="-punctuation-delimiter">:</span></span> <span class="Number">true</span> <span class="-punctuation-bracket">}</span>
+<span class="Keyword"><span class="-keyword-function">end</span></span>
+<span class="-markup-raw-block">```</span>
+</span>
+</pre>
+</body>
+</html>

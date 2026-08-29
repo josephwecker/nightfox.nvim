@@ -1,0 +1,101 @@
+<!-- vim: set nomodeline: -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/Users/josephwecker-v2/src/nightfox.nvim/exemplars/12-synthetic-all-features.md</title>
+<meta name="colorscheme" content="nightfox"></meta>
+<style>
+* {font-family: "SF Mono","Menlo","Monaco","Courier New","monospace",monospace}
+body {background-color: #192330; color: #cdcecf}
+.-spell {}
+.-keyword-operator {color: #aeafb0}
+.-keyword-function {color: #9d79d6}
+.-keyword-return {color: #c94f6d}
+.Title {color: #86abdc; font-weight: bold}
+.Number {color: #f4a261}
+.Type {color: #dbc074}
+.Function {color: #86abdc}
+.-punctuation-bracket {color: #aeafb0}
+.-punctuation-delimiter {color: #aeafb0}
+.Italic {font-style: italic}
+.-markup-quote {color: #aeafb0}
+.-markup-link-url {font-style: italic; color: #f6b079; text-decoration-line: underline}
+.-markup-raw-block {color: #d67ad2}
+.-punctuation-special {color: #7ad5d6}
+.-variable-parameter {color: #7ad5d6}
+.-markup-list {color: #7ad5d6}
+.-markup-list-unchecked {color: #dbc074}
+.-variable {color: #dfdfe0}
+.Comment {color: #738091}
+.Operator {color: #aeafb0}
+.-string-escape {color: #e0c989; font-weight: bold}
+.-markup-strikethrough {color: #cdcecf; text-decoration-line: line-through}
+.-none {}
+.-markup-strong {color: #ab435d; font-weight: bold}
+.String {color: #81b29a}
+.Keyword {color: #9d79d6}
+.-_label {}
+.-variable-member {color: #719cd6}
+.PreProc {color: #dc8ed9}
+.-markup-list-checked {color: #81b29a}
+.-property {color: #719cd6}
+.-constructor-lua {color: #aeafb0}
+.-module {color: #7ad5d6}
+.-type-builtin {color: #7ad5d6}
+.-conceal {}
+.-markup-raw {font-style: italic; color: #63cdcf}
+.-function-builtin {color: #c94f6d}
+.-_url {}
+.Special {color: #86abdc}
+.-nospell {}
+.-markup-link {color: #9d79d6; font-weight: bold}
+.Conditional {color: #baa1e2}
+</style>
+</head>
+<body style="display: flex">
+<pre>
+<span class="Title"># <span class="-spell">Title with <span class="-markup-raw"><span class="-nospell"><span class="-conceal">`</span>inline code<span class="-conceal">`</span></span></span> and <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>bold<span class="-conceal">*</span><span class="-conceal">*</span></span></span>
+</span>
+<span class="-spell">A <span class="-markup-link"><span class="-_label">[</span></span><span class="-_label"><span class="Special">link</span><span class="-markup-link">]</span><span class="-markup-link">(</span><span class="-markup-link"><span class="-_url"><span class="-markup-link-url"><span class="-nospell">https://v2.io</span></span></span></span><span class="-markup-link">)</span></span> and <span class="Italic"><span class="-conceal">*</span>italic<span class="-conceal">*</span></span> and <span class="-markup-strikethrough"><span class="-conceal">~</span><span class="-markup-strikethrough"><span class="-conceal">~</span>strike<span class="-conceal">~</span></span><span class="-conceal">~</span></span> and a footnote<span class="-markup-link">[</span><span class="-nospell"><span class="Special">^1</span></span><span class="-markup-link">]</span>.</span>
+
+<span class="-markup-raw-block"><span class="-markup-raw-block">```</span><span class="Conditional"><span class="Conditional">lua</span></span>
+<span class="Keyword">local</span> <span class="-keyword-function">function</span> <span class="-variable"><span class="Function">greet</span></span><span class="-punctuation-bracket">(</span><span class="-variable"><span class="-variable-parameter">name</span></span><span class="-punctuation-delimiter">,</span> <span class="-variable"><span class="-variable-parameter">count</span></span><span class="-punctuation-bracket">)</span>
+  <span class="Comment"><span class="-spell">-- a comment</span></span>
+  <span class="Conditional">for</span> <span class="-variable">i</span> <span class="Operator">=</span> <span class="Number">1</span><span class="-punctuation-delimiter">,</span> <span class="-variable">count</span> <span class="Conditional">do</span>
+    <span class="-variable"><span class="Function"><span class="-function-builtin">print</span></span></span><span class="-punctuation-bracket">(</span><span class="-punctuation-bracket">(</span><span class="String">&quot;hello %s #%d&quot;</span><span class="-punctuation-bracket">)</span><span class="-punctuation-delimiter">:</span><span class="-variable"><span class="Function">format</span></span><span class="-punctuation-bracket">(</span><span class="-variable">name</span><span class="-punctuation-delimiter">,</span> <span class="-variable">i</span><span class="-punctuation-bracket">)</span><span class="-punctuation-bracket">)</span>
+  <span class="Conditional">end</span>
+  <span class="-keyword-return">return</span> <span class="-punctuation-bracket"><span class="-constructor-lua">{</span></span> <span class="-variable"><span class="-property">ok</span></span> <span class="Operator">=</span> <span class="Number">true</span><span class="-punctuation-delimiter">,</span> <span class="-variable"><span class="-property">when</span></span> <span class="Operator">=</span> <span class="-variable"><span class="-module">os</span></span><span class="-punctuation-delimiter">.</span><span class="-variable"><span class="-variable-member"><span class="Function">time</span></span></span><span class="-punctuation-bracket">(</span><span class="-punctuation-bracket">)</span> <span class="-punctuation-bracket"><span class="-constructor-lua">}</span></span>
+<span class="-keyword-function">end</span>
+<span class="-markup-raw-block">```</span>
+</span>
+<span class="-markup-raw-block"><span class="-markup-raw-block">```</span><span class="Conditional"><span class="Conditional">python</span></span>
+<span class="-keyword-function">def</span> <span class="-variable"><span class="Function">greet</span></span><span class="-punctuation-bracket">(</span><span class="-variable"><span class="-variable-parameter">name</span></span><span class="-punctuation-delimiter">:</span> <span class="-variable"><span class="Type"><span class="-type-builtin">str</span></span></span><span class="-punctuation-delimiter">,</span> <span class="-variable"><span class="-variable-parameter">count</span></span><span class="-punctuation-delimiter">:</span> <span class="-variable"><span class="Type"><span class="-type-builtin">int</span></span></span> <span class="Operator">=</span> <span class="Number">3</span><span class="-punctuation-bracket">)</span> <span class="Operator">-&gt;</span> <span class="-variable"><span class="Type"><span class="-type-builtin">dict</span></span></span><span class="-punctuation-delimiter">:</span>
+    <span class="String"><span class="String">&quot;&quot;&quot;<span class="-spell">docstring</span>&quot;&quot;&quot;</span></span>
+    <span class="Conditional">for</span> <span class="-variable">i</span> <span class="-keyword-operator">in</span> <span class="-variable"><span class="-type-builtin"><span class="Function"><span class="-function-builtin">range</span></span></span></span><span class="-punctuation-bracket">(</span><span class="-variable">count</span><span class="-punctuation-bracket">)</span><span class="-punctuation-delimiter">:</span>
+        <span class="-variable"><span class="Function"><span class="-function-builtin">print</span></span></span><span class="-punctuation-bracket">(</span><span class="String">f&quot;hello <span class="-none"><span class="-nospell"><span class="-punctuation-bracket"><span class="-punctuation-special">{</span></span><span class="-variable">name</span><span class="-punctuation-bracket"><span class="-punctuation-special">}</span></span></span></span> #<span class="-none"><span class="-nospell"><span class="-punctuation-bracket"><span class="-punctuation-special">{</span></span><span class="-variable">i</span><span class="-punctuation-bracket"><span class="-punctuation-special">}</span></span></span></span>&quot;</span><span class="-punctuation-bracket">)</span>
+    <span class="-keyword-return">return</span> <span class="-punctuation-bracket">{</span><span class="String">&quot;ok&quot;</span><span class="-punctuation-delimiter">:</span> <span class="Number">True</span><span class="-punctuation-bracket">}</span>
+<span class="-markup-raw-block">```</span>
+</span>
+<span class="-markup-raw-block"><span class="-markup-raw-block">```</span><span class="Conditional"><span class="Conditional">c</span></span>
+<span class="PreProc">#include</span> <span class="String">&lt;stdio.h&gt;</span>
+<span class="Keyword">static</span> <span class="-type-builtin">int</span> <span class="-variable"><span class="Function">greet</span></span><span class="-punctuation-bracket">(</span><span class="Keyword">const</span> <span class="-type-builtin">char</span> <span class="-variable-parameter"><span class="Operator">*</span><span class="-variable">name</span></span><span class="-punctuation-bracket">)</span> <span class="-punctuation-bracket">{</span>
+  <span class="Conditional">for</span> <span class="-punctuation-bracket">(</span><span class="-type-builtin">int</span> <span class="-variable">i</span> <span class="Operator">=</span> <span class="Number">0</span><span class="-punctuation-delimiter">;</span> <span class="-variable">i</span> <span class="Operator">&lt;</span> <span class="Number">3</span><span class="-punctuation-delimiter">;</span> <span class="-variable">i</span><span class="Operator">++</span><span class="-punctuation-bracket">)</span> <span class="-variable"><span class="Function">printf</span></span><span class="-punctuation-bracket">(</span><span class="String">&quot;hello %s #%d<span class="-string-escape">\n</span>&quot;</span><span class="-punctuation-delimiter">,</span> <span class="-variable">name</span><span class="-punctuation-delimiter">,</span> <span class="-variable">i</span><span class="-punctuation-bracket">)</span><span class="-punctuation-delimiter">;</span>
+  <span class="-keyword-return">return</span> <span class="Number">0</span><span class="-punctuation-delimiter">;</span>
+<span class="-punctuation-bracket">}</span>
+<span class="-markup-raw-block">```</span>
+</span>
+<span class="-punctuation-special">|</span> <span class="Title">col1 </span><span class="-punctuation-special">|</span> <span class="Title">col2 </span><span class="-punctuation-special">|</span>
+<span class="-punctuation-special">|</span><span class="-punctuation-special">------</span><span class="-punctuation-special">|</span><span class="-punctuation-special">------</span><span class="-punctuation-special">|</span>
+<span class="-punctuation-special">|</span> a    <span class="-punctuation-special">|</span> b    <span class="-punctuation-special">|</span>
+
+<span class="-markup-quote"><span class="-punctuation-special">&gt; </span><span class="-spell">a blockquote with <span class="-markup-strong"><span class="-conceal">*</span><span class="-conceal">*</span>bold<span class="-conceal">*</span><span class="-conceal">*</span></span></span>
+</span>
+<span class="-markup-list">- </span><span class="-markup-list-unchecked">[ ]</span> <span class="-spell">unchecked task</span>
+<span class="-markup-list">- </span><span class="-markup-list-checked">[x]</span> <span class="-spell">checked task</span>
+
+<span class="-spell"><span class="-markup-link">[</span><span class="-nospell"><span class="Special">^1</span></span><span class="-markup-link">]</span>: the footnote text.</span>
+
+</pre>
+</body>
+</html>
