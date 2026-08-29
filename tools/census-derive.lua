@@ -11,6 +11,17 @@
 -- Adjacency: consecutive distinct-class span pairs in byte order, all
 -- injection layers interleaved — the visual neighbor truth of the page.
 
+-- rtp: this fork (its after/queries extensions are part of what we measure),
+-- the parser site dir, and any vendored nvim-treesitter (queries for
+-- injected languages) — the census must see what the editor sees.
+local here = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h:h")
+vim.opt.rtp:prepend(here)
+vim.opt.rtp:append(here .. "/after") -- after/queries extensions live here
+vim.opt.rtp:append(vim.fn.stdpath("data") .. "/site")
+for _, pk in ipairs(vim.fn.glob(vim.fn.stdpath("config") .. "/pack/*/start/nvim-treesitter", true, true)) do
+  vim.opt.rtp:append(pk)
+end
+
 local files = {}
 for line in io.lines(os.getenv("CORPUS")) do
   files[#files + 1] = line
@@ -21,7 +32,8 @@ local function is_meta(name)
   return META[name] or name:match("^@_")
 end
 
-local classes = {} -- name -> {n, bytes}
+local classes = {} -- name -> {n, bytes}  (aggregated across languages)
+local lang_classes = {} -- "@capture.lang" for injected langs beyond markdown/_inline
 local adj = {} -- "a\tb" (sorted) -> weight
 local total = 0
 
@@ -43,6 +55,13 @@ for _, file in ipairs(files) do
               local c = classes[name] or { n = 0, bytes = 0 }
               c.n, c.bytes = c.n + 1, c.bytes + (eb - sb)
               classes[name] = c
+              local lang = ltree:lang()
+              if lang ~= "markdown" and lang ~= "markdown_inline" then
+                local lname = name .. "." .. lang
+                local lc = lang_classes[lname] or { n = 0, bytes = 0 }
+                lc.n, lc.bytes = lc.n + 1, lc.bytes + (eb - sb)
+                lang_classes[lname] = lc
+              end
               spans[#spans + 1] = { sb, eb, name }
             end
           end
@@ -87,6 +106,18 @@ for _, name in ipairs(names) do
   local avg_len = c.bytes / c.n
   w(('    ["%s"] = { share = %.6f, density10k = %.3f, avg_len = %.1f, n = %d, bytes = %d },'):format(
     name, share, density10k, avg_len, c.n, c.bytes))
+end
+w("  },")
+w("  lang_classes = {")
+local lnames = {}
+for k in pairs(lang_classes) do
+  lnames[#lnames + 1] = k
+end
+table.sort(lnames)
+for _, name in ipairs(lnames) do
+  local c = lang_classes[name]
+  w(('    ["%s"] = { share = %.6f, density10k = %.3f, avg_len = %.1f, n = %d, bytes = %d },'):format(
+    name, c.bytes / total, c.n / (total / 10000), c.bytes / c.n, c.n, c.bytes))
 end
 w("  },")
 w("  adjacency = {")

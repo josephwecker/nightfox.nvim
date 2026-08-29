@@ -5,7 +5,10 @@
 -- Used by tools/snapshot.sh; needs the treesitter parser/query dirs on rtp
 -- (we add stdpath('data')/site and any pack/*/start/nvim-treesitter found).
 local rtp = os.getenv("SNAP_RTP")
-if rtp then vim.opt.rtp:prepend(rtp) end
+if rtp then
+  vim.opt.rtp:prepend(rtp)
+  vim.opt.rtp:append(rtp .. "/after") -- after/queries extensions
+end
 local site = vim.fn.stdpath("data") .. "/site"
 vim.opt.rtp:append(site)
 for _, p in ipairs(vim.fn.glob(vim.fn.stdpath("config") .. "/pack/*/start/nvim-treesitter", true, true)) do

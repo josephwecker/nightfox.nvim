@@ -132,19 +132,37 @@ local KEEP_P1 = {
 --   readability floor: classes whose spans are *read* (avg span >= 4 bytes)
 --     floor at body contrast; sub-glyph classes may recede much further.
 -- ---------------------------------------------------------------------------
+-- Derivation coefficients — honestly: first-guess constants, never fit.
+-- They are the generator's personality parameters (the 2011 trio lives in
+-- meta.lynx.personality = { contrast, chroma }); P5's fitness pass is where
+-- these get fit against the exemplar corpus instead of guessed.
+local PARAMS = {
+  base = 3.0, -- contrast baseline
+  info_gain = 1.6, -- how much rarity may spend
+  clutter_cost = 2.0, -- how hard frequency damps (the balance rule)
+  read_floor = 5.2, -- classes whose spans are read (avg >= 4 bytes)
+  glyph_floor = 2.3, -- sub-glyph scaffold may recede this far
+  cap = 9.2,
+  colorfulness = 0.125, -- baseline chroma for allocated identities
+}
+
 local ok_census, CENSUS = pcall(require, "nightfox.census.markdown")
 if not ok_census then CENSUS = { classes = {}, adjacency = {} } end
 
-local function derived_contrast(name)
-  local c = CENSUS.classes[name]
-  if not c then return nil end
+local function contrast_from_stats(c)
   local info = -math.log10(math.max(c.share, 1e-5))
   local clutter = math.log10(1 + c.density10k)
-  local floor = (c.avg_len >= 4) and 5.2 or 2.3
-  local t = 3.0 + 1.6 * info - 2.0 * clutter
+  local floor = (c.avg_len >= 4) and PARAMS.read_floor or PARAMS.glyph_floor
+  local t = PARAMS.base + PARAMS.info_gain * info - PARAMS.clutter_cost * clutter
   if t < floor then t = floor end
-  if t > 9.2 then t = 9.2 end
+  if t > PARAMS.cap then t = PARAMS.cap end
   return t
+end
+
+local function derived_contrast(name)
+  local c = CENSUS.classes[name] or (CENSUS.lang_classes or {})[name]
+  if not c then return nil end
+  return contrast_from_stats(c)
 end
 
 local function share_of(name)
@@ -195,7 +213,10 @@ function M.generate(spec)
   end
 
   local R = rng(seed_from(scheme_seed))
-  local median_C = 0.125 -- colorfulness personality baseline
+  local pers = (meta.lynx and meta.lynx.personality) or {}
+  local p_contrast = pers.contrast or 1.0
+  local p_chroma = pers.chroma or 1.0
+  local median_C = PARAMS.colorfulness * p_chroma
 
   -- 1) taken hues: the anchored code families
   local taken = {}
@@ -322,38 +343,37 @@ function M.generate(spec)
     end
   end
 
-  -- 6.5) the math world: latex-internal captures resolve with a .latex
-  -- suffix (and $ / $$ as @punctuation.delimiter.math via our query
-  -- extension). They are the math identity's OWN kinship family — the ruled
-  -- north star: the block's content carries the family hue at full voice,
-  -- its scaffold in DULLED, mutually-distinct shades of the same hue.
-  -- (P4 replaces this with a full sibling scheme; this is the kinship layer.)
+  -- 6.5) the math world — DERIVED, not hand-mapped: every measured latex
+  -- capture (census lang_classes) plus the fork-added $/$$ capture becomes
+  -- kin of the math identity: hue = math slot + seeded kinship jitter,
+  -- contrast from its own measured stats, chroma FOLLOWING contrast (one
+  -- emphasis budget expressed in both channels — dull scaffold falls out of
+  -- its measured frequency, not a dulling table). P4 replaces this with a
+  -- full sibling scheme; this is the kinship layer.
   local math_slot = slot["@markup.math"]
   do
-    local mh, mC = math_slot.h, math_slot.C
-    local function kin(name, dh, cscale, target)
-      local r = rng(seed_from(scheme_seed .. "\0" .. name))
-      placed[name] = {
-        c = { h = (mh + dh + jit(r) * 3) % 360, C = mC * cscale, L = 0.7 },
-        fam_root = "@markup.math",
-        target = target,
-      }
+    local kin_names = { ["@punctuation.delimiter.math"] = CENSUS.classes["@punctuation.delimiter.math"] }
+    for lname, stats in pairs(CENSUS.lang_classes or {}) do
+      if lname:match("%.latex$") then kin_names[lname] = stats end
     end
-    kin("@markup.math.markdown_inline", 0, 1.0, derived_contrast("@markup.math") or 5.4)
-    kin("@function.latex", 6, 1.05, 6.2)          -- commands: the discriminators
-    kin("@module.latex", -8, 0.95, 5.6)
-    kin("@label.latex", 12, 0.9, 5.6)
-    kin("@operator.latex", 3, 0.55, 3.8)          -- dull kin
-    kin("@punctuation.bracket.latex", -5, 0.5, 3.4)  -- different dull shade
-    kin("@punctuation.delimiter.latex", 8, 0.5, 3.2)
-    kin("@punctuation.delimiter.math", -3, 0.62, 4.2) -- the $ / $$ gates
-    kin("@markup.strong.latex", 0, 1.1, 6.6)
-    kin("@none.latex", 0, 0.9, 5.2)
+    for lname, stats in pairs(kin_names) do
+      if stats then
+        local r = rng(seed_from(scheme_seed .. "\0" .. lname))
+        local target = contrast_from_stats(stats)
+        local cscale = math.min(math.max(target / 6.5, 0.45), 1.1)
+        placed[lname] = {
+          c = { h = (math_slot.h + jit(r) * 9) % 360, C = math_slot.C * cscale, L = 0.7 },
+          fam_root = "@markup.math",
+          target = target,
+        }
+      end
+    end
   end
 
   -- 7) solve lightness per node against the actual bg; emit
   for name, p in pairs(placed) do
-    local solved = oklch.solve_lightness(p.c, bg, p.target)
+    local target = 1 + (p.target - 1) * p_contrast
+    local solved = oklch.solve_lightness(p.c, bg, target)
     local attrs = { fg = oklch.to_hex(solved) }
     local style = STYLES[name] or (FAMILIES[name] and FAMILIES[name].style)
     if name == "@markup.strong" then style = "bold" end
