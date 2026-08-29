@@ -216,6 +216,21 @@ Rust engine remains the Obsidian PoC, not the upstream of this.
   display semantics via extmarks (needs design against the cursor-line
   anti-conceal model; composes with sibling-bg since the fork owns table
   painting anyway).
+- **Fixed reading measure** (soft-wrap prose at ~N columns regardless of
+  window width; remaining space is margin). No native option: nvim has no
+  'wrapwidth' — soft wrap always breaks at the window edge ('textwidth'/
+  'wrapmargin' are hard-wrap: they insert real newlines, which would fight
+  md-press's one-line-per-paragraph canonical form). Known knobs today:
+  window width IS the wrap width (`:vertical resize 100`, drawer/split
+  sizing); Neovide `neovide_padding_left/right` (global pixel margins);
+  gutter tricks (`foldcolumn=9` + `signcolumn=yes:9` ≈ 18 cols left, not a
+  real solution). Routes: (a) zen/centering pattern — dead side
+  scratch-windows keeping the markdown window at fixed text width (what
+  zen-mode-style plugins do; one autocmd could maintain it per-filetype);
+  (b) the decoration layer pads (composes with the table-viewport and
+  sibling-bg work if the fork owns page painting). Interacts with the
+  never-wrap-tables entry above — a fixed measure plus scroll-right tables
+  is the full "typeset page" feel.
 
 ## Open questions
 
