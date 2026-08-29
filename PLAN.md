@@ -153,9 +153,18 @@ Rust engine remains the Obsidian PoC, not the upstream of this.
 
 ## Phases
 
-- **P1 — link-inversion refactor** *(next)*: break the `link` collapses in
-  `group/` into the explicit kinship tree, values still fed from the existing
-  spec — zero visual change, pure structure. Ship and sit on it.
+- ~~**P1 — link-inversion refactor**~~ **LANDED 2026-08-28**:
+  `lua/nightfox/kinship.lua` — every treesitter/LSP capture a node with an
+  explicit parent; `group/modules/{treesitter,lsp_semantic_tokens}.lua` are
+  now thin emitters from the tree. Formerly-implicit fallbacks materialized
+  as parent links (902 → 929 groups, all individually addressable). Two
+  upstream bugs fixed (marked DELTA in kinship.lua), and four `*.builtin`
+  captures now follow kinship instead of accidentally inheriting nvim's
+  runtime `link=Special` (Joseph loosened strict baseline preservation:
+  "a lot of latitude for experimentation here"). Gotcha for all future
+  verification: nightfox's compile cache (`~/.cache/nvim/nightfox/`) does
+  NOT invalidate on module edits — `rm -rf` it or the old scheme keeps
+  loading; a false "no diff" came from exactly this.
 - **P2 — census maturation**: adjacency pairs; per-buffer census at load
   (measured: instant); LSP-token census on real code buffers.
 - **P3 — generator v1**: lynx schemes as generated extensions of the fox
@@ -167,6 +176,20 @@ Rust engine remains the Obsidian PoC, not the upstream of this.
   functions over census data; density-adaptive allocation; A/B against P3.
 - **Beyond**: contextual emphasis (activity modes), other emission targets —
   gated on appetite, not feasibility.
+
+## Tools
+
+- `tools/markdown-census.lua` — capture census over a corpus (see
+  markdown-census.md).
+- `tools/snapshot.sh FILE [SCHEME] [OUT.png] [light|dark]` — full-color
+  render of FILE under a scheme: headless nvim + builtin tohtml (byte-exact
+  applied highlights, treesitter injections included) → headless Chrome PNG.
+  The .html lands beside the PNG for inspection. This is the eyeball loop's
+  camera — agents can *see* schemes without a GUI.
+- `tools/hl-dump.lua` — dump all resolved highlight groups to a stable text
+  file for diffing (`FOX_RTP=… FOX_SCHEME=… FOX_OUT=… nvim --headless
+  --clean -l tools/hl-dump.lua`); strip `cterm=table: 0x…` noise before
+  diffing. Remember the compile-cache gotcha (Log, 2026-08-28).
 
 ## Open questions
 
