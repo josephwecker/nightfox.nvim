@@ -308,6 +308,12 @@ function M.emit(ns, spec, config)
         -- value-copy of the target's emitted entry (nil target => no entry),
         -- matching upstream's `hl[legacy] = hl[modern]` behavior.
         hl[node.name] = hl[node.alias_of]
+      elseif gen and gen[node.name] then
+        -- lynx: the generator's derived color replaces the P1 value.
+        -- (The original wiring targeted a comment an earlier edit had
+        -- rewritten and silently no-op'd — the generator was invisible for
+        -- its whole first day. Caught by predict-then-count on 2026-08-28.)
+        hl[node.name] = gen[node.name]
       elseif type(node.value) == "string" then
         hl[node.name] = { link = node.value }
       elseif type(node.value) == "function" then
