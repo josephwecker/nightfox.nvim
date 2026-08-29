@@ -119,8 +119,8 @@ local STYLES = {
   ["@markup.strikethrough"] = "strikethrough",
   ["@markup.underline"] = "underline",
   ["@markup.heading"] = "bold",
-  ["@markup.heading.1"] = "bold",
-  ["@markup.heading.2"] = "bold",
+  ["@markup.heading.1"] = "bold,underline", -- Joseph 2026-08-28: underline h1/h2
+  ["@markup.heading.2"] = "bold,underline",
   ["@markup.quote"] = "italic",
   ["@markup.link.url"] = "italic,underline",
   ["@string.escape"] = "bold",
@@ -372,45 +372,86 @@ function M.generate(spec)
     end
   end
 
-  -- 6.5) the math world — DERIVED, not hand-mapped: every measured latex
-  -- capture (census lang_classes) plus the fork-added $/$$ capture becomes
-  -- kin of the math identity: hue = math slot + seeded kinship jitter,
-  -- contrast from its own measured stats, chroma FOLLOWING contrast (one
-  -- emphasis budget expressed in both channels — dull scaffold falls out of
-  -- its measured frequency, not a dulling table). P4 replaces this with a
-  -- full sibling scheme; this is the kinship layer.
-  local math_slot = slot["@markup.math"]
-  do
-    local kin_names = { ["@punctuation.delimiter.math"] = CENSUS.classes["@punctuation.delimiter.math"] }
-    for lname, stats in pairs(CENSUS.lang_classes or {}) do
-      if lname:match("%.latex$") then kin_names[lname] = stats end
-    end
-    for lname, stats in pairs(kin_names) do
-      if stats then
-        local r = rng(seed_from(scheme_seed .. "\0" .. lname))
-        local target = contrast_from_stats(stats)
-        local cscale = math.min(math.max(target / 6.5, 0.45), 1.1)
-        placed[lname] = {
-          c = { h = (math_slot.h + jit(r) * 9) % 360, C = math_slot.C * cscale, L = 0.7 },
-          fam_root = "@markup.math",
-          target = target,
-        }
+  -- 6.5) SIBLING SCHEMES (P4, landed 2026-08-28): each embedded language is
+  -- a PARALLEL scheme — the same kinship machinery run against a designated
+  -- sibling fox's anchors (ruling: "different languages — different mental
+  -- contexts"; designated assignments in meta.lynx.siblings, name-hash
+  -- fallback for everyone else — every language a stable identity). The
+  -- block-bg half of the ruling lands with the render-markdown contract.
+  local SIBLING_DESIGNATED = (meta.lynx and meta.lynx.siblings) or {}
+  local sib_cache = {}
+  local function sibling_of(lang2)
+    if sib_cache[lang2] then return sib_cache[lang2] end
+    local anchor = (meta.lynx and meta.lynx.anchor) or meta.name
+    local pick = SIBLING_DESIGNATED[lang2]
+    if not pick then
+      local pool = {}
+      for _, f in ipairs(require("nightfox.palette").foxes) do
+        if f ~= anchor then pool[#pool + 1] = f end
       end
+      pick = pool[(seed_from(lang2) % #pool) + 1]
     end
+    sib_cache[lang2] = { name = pick, palette = require("nightfox.palette." .. pick).palette }
+    return sib_cache[lang2]
   end
 
-  -- 6.6) gates, generally: fork-added delimiter captures render as the
-  -- DULLED KIN of the family they open (math $, strong **, italic *,
-  -- strikethrough ~~, code-span `). Contrast from their measured census
-  -- stats where present (glyph-floor recede falls out of frequency);
-  -- hue/chroma follow the host identity.
+  local prose_contrast_s = oklch.contrast(fg, bg)
+  local sib_langs = {}
+  for lname, stats in pairs(CENSUS.lang_classes or {}) do
+    local lang2 = lname:match("%.([%w_]+)$")
+    if lang2 then
+      sib_langs[lang2] = true
+      local base_name = lname:sub(1, #lname - #lang2 - 2)
+      local sib = sibling_of(lang2)
+      local fam = find_family(base_name, index)
+      local r = rng(seed_from(scheme_seed .. "\0" .. lname))
+      local target = contrast_from_stats(stats)
+      local c
+      if base_name == "@markup.math" then
+        -- the language's base tone: sibling prose — content with a passport
+        local sfg = oklch.from_hex(sib.palette.fg1)
+        c = { h = (sfg.h + jit(r) * 20) % 360, C = 0.05 * p_chroma, L = 0.7 }
+        target = math.max(prose_contrast_s * 0.97, 5.0)
+      else
+        local base = anchor_hue(sib.palette, fam.hue, sib.palette.fg1)
+        local cscale = fam.cscale or 1.0
+        c = { h = (base.h + jit(r) * 8) % 360, C = math.max(base.C * cscale, 0) * (0.9 + 0.2 * r()), L = base.L }
+      end
+      placed[lname] = { c = c, fam_root = "(sibling:" .. lang2 .. ")", target = target }
+    end
+  end
+  -- per-language extras the census can't see:
+  for lang2 in pairs(sib_langs) do
+    local sib = sibling_of(lang2)
+    local sfg = oklch.from_hex(sib.palette.fg1)
+    local r = rng(seed_from(scheme_seed .. "\0@none." .. lang2))
+    -- @none.<lang>: grammars use @none to mean "clear" — inside a sibling
+    -- world the honest clear-point is sibling prose, not host prose
+    placed["@none." .. lang2] = {
+      c = { h = (sfg.h + jit(r) * 20) % 360, C = 0.05 * p_chroma, L = 0.7 },
+      fam_root = "(sibling:" .. lang2 .. ")",
+      target = math.max(prose_contrast_s * 0.97, 5.0),
+    }
+  end
+  -- \text{...} words (fork latex query): sibling prose, a touch brighter
+  do
+    local sib = sibling_of("latex")
+    local sfg = oklch.from_hex(sib.palette.fg1)
+    local r = rng(seed_from(scheme_seed .. "\0@markup.math.text"))
+    placed["@markup.math.text"] = {
+      c = { h = (sfg.h + jit(r) * 20) % 360, C = 0.055 * p_chroma, L = 0.7 },
+      fam_root = "(sibling:latex)",
+      target = math.max(prose_contrast_s * 1.0, 5.2),
+    }
+  end
+
   -- Gate contrast is RELATIVE to the host (the dulled-kin relation is a
   -- relation, not an independent class): gate keeps gate_dim of the host's
   -- excess contrast over 1, floored at legibility. (v1 derived gates from
   -- their own census stats, which left backtick gates nearly as bright as
   -- their content — verdict #6.)
   local GATE_HOSTS = {
-    ["@punctuation.delimiter.math"] = "@markup.math",
+    ["@punctuation.delimiter.math"] = "@markup.math.latex", -- door to the math world: kin of its base
     ["@punctuation.delimiter.strong"] = "@markup.strong",
     ["@punctuation.delimiter.italic"] = "@markup.italic",
     ["@punctuation.delimiter.strikethrough"] = "@markup.strikethrough",
