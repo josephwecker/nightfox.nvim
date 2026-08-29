@@ -93,13 +93,25 @@ local FAMILIES = {
 -- Markdown identities that keep an anchor kinship (ratified nightfox feel),
 -- diverged from their code cousins by the kinship jitter:
 local MD_ANCHORED = {
-  ["@markup.strong"] = { hue = "red", style = "bold" },
   ["@markup.link"] = { hue = "magenta" },
   ["@markup.raw"] = { hue = "cyan" },
 }
 
 -- Markdown identities ALLOCATED into wheel gaps (importance = census share):
-local MD_ALLOCATED = { "@markup.math", "@markup.italic", "@markup.list", "@markup.quote" }
+local MD_ALLOCATED = { "@markup.math", "@markup.list" }
+
+-- PROSE KIN (ruling, Joseph 2026-08-28: bold/italic were "soo different from
+-- normal text, instead of variations of normal text" — and the containment
+-- graph agrees: they hang directly off the prose field). Emphasis variants
+-- derive from Normal fg itself: whisper chroma, lightness RELATIVE to prose,
+-- the glyph shape (bold/italic/strike) carrying the distinction. The factor
+-- is a personality knob (variation magnitude), not an identity.
+local PROSE_KIN = {
+  ["@markup.strong"] = { lum = 1.04, chroma = 0.045 },
+  ["@markup.italic"] = { lum = 0.94, chroma = 0.045 },
+  ["@markup.quote"] = { lum = 0.80, chroma = 0.03 },
+  ["@markup.strikethrough"] = { lum = 0.55, chroma = 0.0 },
+}
 
 -- Style conventions (typography, not color — carried, not derived):
 local STYLES = {
@@ -243,6 +255,18 @@ function M.generate(spec)
   end
   slot["@markup.heading"] = { h = hb.h, C = math.max(hb.C, median_C) }
 
+  -- 2.5) prose-kin: emphasis variants placed relative to the prose field
+  local prose_contrast = oklch.contrast(fg, bg)
+  local fg_lch = oklch.from_hex(fg)
+  for name, pk in pairs(PROSE_KIN) do
+    local r = rng(seed_from(scheme_seed .. "\0" .. name))
+    slot[name] = {
+      h = (fg_lch.h + jit(r) * 40) % 360,
+      C = pk.chroma * p_chroma,
+      prose_target = math.max(prose_contrast * pk.lum, 2.4),
+    }
+  end
+
   -- 3) markdown anchored identities (kin to code cousins, diverged later by
   -- the kinship jitter like any child)
   for name, a in pairs(MD_ANCHORED) do
@@ -324,6 +348,9 @@ function M.generate(spec)
         c = { h = (base.h + jit(r) * span) % 360, C = math.max(base.C * cscale, 0) * (0.9 + 0.2 * r()), L = base.L }
       end
       local target = derived_contrast(name) or TIER_CONTRAST[fam.tier] or 6.0
+      if slot_anc and slot[slot_anc].prose_target then
+        target = slot[slot_anc].prose_target
+      end
       placed[name] = { c = c, fam_root = slot_anc or fam_root, target = target }
     end
   end
