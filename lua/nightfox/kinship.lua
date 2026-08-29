@@ -126,6 +126,10 @@ n("@keyword.directive.define", "@keyword.directive", nil)
 n("@punctuation.delimiter", nil, function(c) return { fg = c.syn.bracket } end)
 n("@punctuation.bracket", nil, function(c) return { fg = c.syn.bracket } end)
 n("@punctuation.special", nil, function(c) return { fg = c.syn.builtin1, style = c.stl.operators } end)
+-- fork-added capture (after/queries/markdown_inline/highlights.scm): the $ /
+-- $$ math delimiters — dulled kin of the math family, per the autocolors
+-- kinship-shading ruling:
+n("@punctuation.delimiter.math", "@punctuation.delimiter", nil)
 
 -- =========================================================================
 -- Comments
@@ -292,6 +296,12 @@ function M.emit(ns, spec, config)
     P = spec.palette,
   }
   local hl = {}
+  -- lynx: generated per-node colors override the P1 values (aliases and
+  -- KEEP_P1 nodes fall through to P1; LSP nodes inherit via their links).
+  local gen = nil
+  if ns == "ts" and spec.palette.meta and spec.palette.meta.lynx then
+    gen = require("nightfox.lynx").generate(spec)
+  end
   for _, node in ipairs(nodes) do
     if node.ns == ns then
       if node.alias_of then
@@ -306,6 +316,13 @@ function M.emit(ns, spec, config)
         -- inherit: explicit link to parent — the tree, materialized.
         hl[node.name] = { link = node.parent }
       end
+    end
+  end
+  -- generated captures beyond the tree (language-suffixed kin like
+  -- @function.latex) ride along with the ts namespace
+  if gen then
+    for k, v in pairs(gen) do
+      if hl[k] == nil then hl[k] = v end
     end
   end
   return hl

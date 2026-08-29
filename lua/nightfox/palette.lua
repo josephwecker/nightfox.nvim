@@ -46,6 +46,12 @@ M.foxes = {
   "terafox",
 }
 
+-- Generated lynx schemes (autocolors; see PLAN.md). Kept out of M.foxes so
+-- extras/lualine generation keeps iterating the hand-made foxes only.
+M.lynxes = {
+  "nightlynx",
+}
+
 local function override(color, ovr)
   local color_list = { "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "orange", "pink" }
   for key, value in pairs(ovr) do
@@ -101,7 +107,7 @@ function M.load(name)
   end
 
   if name then
-    local valid = collect.contains(M.foxes, name)
+    local valid = collect.contains(M.foxes, name) or collect.contains(M.lynxes, name)
     local raw = valid and require("nightfox.palette." .. name) or require("nightfox.palette.nightfox")
     local palette = raw.palette
     palette = cb_func(palette)

@@ -28,8 +28,11 @@ function M.compile()
   require("nightfox.lib.log").clear()
 
   local compiler = require("nightfox.lib." .. (is_vim and "vim." or "") .. "compiler")
-  local foxes = require("nightfox.palette").foxes
-  for _, style in ipairs(foxes) do
+  local palette = require("nightfox.palette")
+  for _, style in ipairs(palette.foxes) do
+    compiler.compile({ style = style })
+  end
+  for _, style in ipairs(palette.lynxes or {}) do
     compiler.compile({ style = style })
   end
 end
