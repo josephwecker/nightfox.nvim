@@ -9,9 +9,9 @@ autocolors/` (2011 NOTES + archaeology, 2026-07-16 bridge plan) — the theory
 lives there; the build lives here. Agent-drafted; Joseph's rulings quoted or
 marked; agent proposals marked.*
 
-## The triple (Joseph, 2026-08-28 — the definition of done)
+## The quadruple (Joseph, 2026-08-28 — the definition of done)
 
-The three pieces that were each only ever partially there until now:
+The pieces that were each only ever partially there until now:
 
 1. **Very rich, nested, highly granular syntactic/semantic spans** for target
    languages, *including embedded other-languages*.
@@ -19,6 +19,17 @@ The three pieces that were each only ever partially there until now:
    adjacencies — projecting #1 onto perceptual needs.
 3. **A very rich hierarchical color scheme that satisfies #2**, on displays
    that can carry that much color.
+4. **Intent of the person viewing the file** — bug-fixing vs. progressive
+   comprehension vs. mapping-to-side-effects; in markdown: first-time-reader
+   vs. referencing vs. writer/maintainer perspective. (The 2011 NOTES
+   §CONTEXTUAL EMPHASIS, rejoined 2026-08-28.) **Deferred** — but it is
+   architecture-shaping now: intent doesn't just adjust the emphasis budget,
+   it can *invert* it (fixing the math ⇒ prose goes dull-field, latex goes
+   prominent — the same census, the opposite allocation). So the generator's
+   signature is `scheme = f(census, intent)` with intent pinned at
+   "reading/writing prose" for now; the parameter exists even while unvaried.
+   Until then, #2's census guides "an appropriate balance and judicious use
+   of sibling-schemes" (Joseph).
 
 Neovim supplies #1 for free (treesitter + LSP captures with byte-exact spans,
 injections included). This fork's census tool is the start of #2 (see
@@ -69,13 +80,22 @@ Not in any prior planning — new ruling, stronger than the old
   architecture and differs in hue personality — so a sibling scheme is the
   same kinship tree run with a different personality seed, re-solved against
   its block bg. The family is a *palette of palettes*.
-- Assignment map: explicit designations for languages that matter; unlisted
-  languages hash their name to a family member (name-is-seed applied to
-  languages — every language a stable identity, no committee). *(mechanism:
-  agent proposal, unratified)*
-- Composition guard *(agent proposal)*: sibling-distinctness scales down as
-  embedded density rises (a doc that is half fences must not shatter) —
-  measurable from census fence/math byte-share; a fitness term, not taste.
+- Assignment map (**ratified 2026-08-28**): explicit designations for
+  languages that matter; unlisted languages hash their name to a family
+  member (name-is-seed applied to languages — every language a stable
+  identity, no committee).
+- **Block/inline split (ratified 2026-08-28, "right away")**: display math
+  and fences get the full sibling identity, background alteration included;
+  *inline* math and inline code get the sibling's hue identity but no (or
+  whisper-level) background alteration — different-language-different-world
+  stays fully intact where the eye enters a block; prose stays readable where
+  the embedding is a three-character span mid-sentence.
+- The earlier density-dial proposal (auto-dulling sibling distinctness as
+  embedded share rises) is **parked**: density stays a P5 fitness
+  *measurement*, not an automatic dial — and the latex-confetti case turns
+  out to be an *intent* question (quadruple #4: fixing-the-math perspective
+  legitimately wants prose dull and latex prominent), not a defect to
+  engineer away. For now the census guides balance judiciously, by hand.
 
 **Mechanics, verified 2026-08-28**: nvim resolves injected captures with a
 language suffix (`@function.call.ruby`), so per-language columns are pure
@@ -124,12 +144,12 @@ and method in [[markdown-census]]):
                    later: the block-bg decoration contract with render-markdown
 ```
 
-*(Agent proposal, revised from an earlier Rust-engine recommendation and
-unratified: generator in **Lua, in this fork** — nvim is the sole initial
-target, the census input is Lua-native, and the dev loop that matters is
+**Ratified 2026-08-28: generator in Lua, in this fork** (revised from an
+earlier Rust-engine recommendation) — nvim is the sole initial target, the
+census input is Lua-native, and the dev loop that matters is
 `:Autocolors nightlynx-3` regenerating live while eyeballing a real document.
 Extract a library later, when "real deal" has earned its shape. The udon-wasm
-Rust engine remains the Obsidian PoC, not the upstream of this.)*
+Rust engine remains the Obsidian PoC, not the upstream of this.
 
 ## Phases
 
