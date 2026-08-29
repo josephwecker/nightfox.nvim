@@ -91,6 +91,13 @@ function M.to_hex(c)
   return M.rgb_to_hex(linear_to_srgb(math.max(r, 0)), linear_to_srgb(math.max(g, 0)), linear_to_srgb(math.max(bl, 0)))
 end
 
+--- Perceptual distance between two {L,C,h} colors (OKLab Euclidean).
+function M.delta(c1, c2)
+  local a1, b1 = c1.C * cos(math.rad(c1.h)), c1.C * sin(math.rad(c1.h))
+  local a2, b2 = c2.C * cos(math.rad(c2.h)), c2.C * sin(math.rad(c2.h))
+  return sqrt((c1.L - c2.L) ^ 2 + (a1 - a2) ^ 2 + (b1 - b2) ^ 2)
+end
+
 -- WCAG relative luminance of a hex color
 function M.luminance(hex)
   local r, g, b = M.hex_to_rgb(hex)

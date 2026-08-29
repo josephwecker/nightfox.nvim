@@ -397,6 +397,33 @@ function M.generate(spec)
     end
   end
 
+  -- 6.7) heading ladder legibility: adjacent levels must be perceptually
+  -- distinct AFTER lightness solving (verdict #4: h4 vs h5 read identical —
+  -- equal hue steps compress in some wheel zones, and brightness doesn't
+  -- separate levels the census can't see). Walk the ladder solving each
+  -- level and pushing its hue further along the arc until OKLab distance
+  -- from the previous level clears a floor.
+  do
+    local MIN_DELTA = 0.055
+    local prev = nil
+    for lvl = 1, 6 do
+      local p = placed["@markup.heading." .. lvl]
+      if p then
+        local solved = oklch.solve_lightness(p.c, bg, 1 + (p.target - 1) * p_contrast)
+        if prev then
+          local guard = 0
+          while oklch.delta(solved, prev) < MIN_DELTA and guard < 12 do
+            p.c.h = (p.c.h + arc_dir * 7) % 360
+            solved = oklch.solve_lightness({ h = p.c.h, C = p.c.C, L = p.c.L }, bg, 1 + (p.target - 1) * p_contrast)
+            guard = guard + 1
+          end
+          p.c.h = solved.h
+        end
+        prev = solved
+      end
+    end
+  end
+
   -- 7) solve lightness per node against the actual bg; emit
   for name, p in pairs(placed) do
     local target = 1 + (p.target - 1) * p_contrast
