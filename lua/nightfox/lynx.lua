@@ -156,6 +156,8 @@ local PARAMS = {
   glyph_floor = 2.3, -- sub-glyph scaffold may recede this far
   cap = 9.2,
   colorfulness = 0.125, -- baseline chroma for allocated identities
+  gate_dim = 0.35, -- gates keep this fraction of their host's excess contrast
+  gate_chroma = 0.6, -- and this fraction of its chroma
 }
 
 local ok_census, CENSUS = pcall(require, "nightfox.census.markdown")
@@ -402,22 +404,32 @@ function M.generate(spec)
   -- strikethrough ~~, code-span `). Contrast from their measured census
   -- stats where present (glyph-floor recede falls out of frequency);
   -- hue/chroma follow the host identity.
+  -- Gate contrast is RELATIVE to the host (the dulled-kin relation is a
+  -- relation, not an independent class): gate keeps gate_dim of the host's
+  -- excess contrast over 1, floored at legibility. (v1 derived gates from
+  -- their own census stats, which left backtick gates nearly as bright as
+  -- their content — verdict #6.)
   local GATE_HOSTS = {
     ["@punctuation.delimiter.math"] = "@markup.math",
     ["@punctuation.delimiter.strong"] = "@markup.strong",
     ["@punctuation.delimiter.italic"] = "@markup.italic",
     ["@punctuation.delimiter.strikethrough"] = "@markup.strikethrough",
     ["@punctuation.delimiter.raw"] = "@markup.raw",
+    ["@punctuation.delimiter.fence"] = "@markup.raw.block",
+    ["@punctuation.delimiter.heading.1"] = "@markup.heading.1",
+    ["@punctuation.delimiter.heading.2"] = "@markup.heading.2",
+    ["@punctuation.delimiter.heading.3"] = "@markup.heading.3",
+    ["@punctuation.delimiter.heading.4"] = "@markup.heading.4",
+    ["@punctuation.delimiter.heading.5"] = "@markup.heading.5",
+    ["@punctuation.delimiter.heading.6"] = "@markup.heading.6",
   }
   for gate, host in pairs(GATE_HOSTS) do
     local hostp = placed[host]
     if hostp then
       local r = rng(seed_from(scheme_seed .. "\0" .. gate))
-      local stats = CENSUS.classes[gate]
-      local target = stats and contrast_from_stats(stats) or 2.6
-      local cscale = math.min(math.max(target / 6.5, 0.45), 1.1)
+      local target = math.max(1 + (hostp.target - 1) * PARAMS.gate_dim, 2.2)
       placed[gate] = {
-        c = { h = (hostp.c.h + jit(r) * 5) % 360, C = hostp.c.C * cscale, L = 0.7 },
+        c = { h = (hostp.c.h + jit(r) * 5) % 360, C = hostp.c.C * PARAMS.gate_chroma, L = 0.7 },
         fam_root = host,
         target = target,
       }
