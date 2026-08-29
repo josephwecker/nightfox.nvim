@@ -1,5 +1,16 @@
 # PLAN — autocolors, the real deal (neovim first), on the nightfox chassis
 
+> [!note] **ON HOLD (2026-08-29, Joseph)** — pending the limen M1
+> proof-of-concept (`~/src/limen/PIPELINE.md`). If limen proves out, this
+> fork/nightlynx gets subsumed by it (succession note in limen's README);
+> M3 there is where autocolors rendering + the sibling-*background* work
+> would land instead of the render-markdown contract. Meanwhile nightlynx
+> is LIVE as Joseph's daily scheme (cos pack symlinks here) — bug-level
+> fixes remain fair game; new phases (P5 fitting, further P4) wait.
+> State at hold: P1-P3 landed; P4 sibling *foreground* schemes landed
+> (latex→duskfox, \text as sibling-prose, gates relational); bg half +
+> P5 open. 8 verdicts in exemplars/VERDICTS.md (7 fixed, all closed).
+
 *Seeded 2026-08-28 from the founding conversation (Joseph + agent, this repo's
 first working session). Autocolors is a standalone program — NOT a child of
 udon; the 2011 Ruby generator (vim output) and the 2026 udon-wasm engine
