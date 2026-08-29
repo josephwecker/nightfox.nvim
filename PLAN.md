@@ -200,6 +200,23 @@ Rust engine remains the Obsidian PoC, not the upstream of this.
   --clean -l tools/hl-dump.lua`); strip `cterm=table: 0x…` noise before
   diffing. Remember the compile-cache gotcha (Log, 2026-08-28).
 
+## Markdown futures (research, Joseph 2026-08-29)
+
+- **Soft-wrap prose, never wrap tables** (scroll right for wide tables).
+  Natively impossible: 'wrap' is window-local, not line-local (longstanding
+  nvim limitation). Routes, ascending ambition: (a) *try first* —
+  cursor-context auto-toggle: autocmd flips the window to nowrap when the
+  cursor enters a pipe_table node (one treesitter call), back to
+  wrap+breakindent on leave — tables as a "different reading mode," the
+  sibling-worlds instinct in the layout dimension; (b) peek-float: wide
+  table opens in a nowrap floating window on key/hover; (c) research-grade:
+  the render-markdown fork conceals raw table lines and paints a
+  VIRTUAL-TEXT VIEWPORT — table clipped to window width, horizontally
+  scrollable by keys, prose around it wrapping normally. True per-region
+  display semantics via extmarks (needs design against the cursor-line
+  anti-conceal model; composes with sibling-bg since the fork owns table
+  painting anyway).
+
 ## Open questions
 
 - **Allocation stability across census regens**: allocated identity hues
