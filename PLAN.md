@@ -7,6 +7,8 @@
 > would land instead of the render-markdown contract. Meanwhile nightlynx
 > is LIVE as Joseph's daily scheme (cos pack symlinks here) — bug-level
 > fixes remain fair game; new phases (P5 fitting, further P4) wait.
+>
+> **HOLD LIFTED 2026-09-21 (Joseph):** M1 proved out; "Consider the cos and nightfox holds lifted." New phases are open again. Note limen's D4 was reopened the same day (`~/src/limen/design/structure-engine.md`): the candidate is comrak-in-the-backbone for document *structure*, with this fork's treesitter work narrowed to fenced-code color + the scheme table rather than being the markdown structure source — the succession picture stands, the split point may move.
 > State at hold: P1-P3 landed; P4 sibling *foreground* schemes landed
 > (latex→duskfox, \text as sibling-prose, gates relational); bg half +
 > P5 open. 8 verdicts in exemplars/VERDICTS.md (7 fixed, all closed).
