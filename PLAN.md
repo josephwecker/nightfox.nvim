@@ -280,3 +280,5 @@ Rust engine remains the Obsidian PoC, not the upstream of this.
   15 parsers compiled; estate re-census 25 → 76 capture pairs — math's
   internal anatomy (7 captures, 184 files) and frontmatter yaml decomposition
   now live. See markdown-census.md post-install section.
+- **2026-09-29** — **daylynx** (Joseph, from limen: "daylynx (or something) light colorscheme"): `palette/daylynx.lua` (dayfox anchors, seed `daylynx`, math's sibling dawnfox — dawn to its day, as duskfox to nightlynx's night), `colors/daylynx.vim`, `M.lynxes`. No generator change: the allocation carries across polarity (heading 1 6.6 : 1 in both lynxes, strings 5.2, keywords 9.2, comments 7.4), and the sibling pool stays the full family (siblings' foregrounds are solved against the host's background either way). nightlynx byte-identical (`tools/hl-dump.lua`, 1,033 groups, before and after). limen renders it with no page change; limen's scheme design (`~/src/limen/design/schemes.md`) proposes the family/appearance/role-table direction this fork's generator would feed.
+

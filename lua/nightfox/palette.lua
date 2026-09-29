@@ -50,6 +50,7 @@ M.foxes = {
 -- extras/lualine generation keeps iterating the hand-made foxes only.
 M.lynxes = {
   "nightlynx",
+  "daylynx",
 }
 
 local function override(color, ovr)
