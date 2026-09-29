@@ -6,7 +6,7 @@
 local fox = require("nightfox.palette.dayfox")
 
 return {
-  meta = { name = "daylynx", light = true, lynx = { anchor = "dayfox", seed = "daylynx", siblings = { latex = "dawnfox" } } },
+  meta = { name = "daylynx", light = true, lynx = { anchor = "dayfox", seed = "daylynx", pair = "nightlynx", siblings = { latex = "dawnfox" } } },
   palette = fox.palette,
   generate_spec = fox.generate_spec,
 }
