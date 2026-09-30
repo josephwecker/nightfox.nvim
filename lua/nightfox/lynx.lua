@@ -401,7 +401,11 @@ function M.generate(spec)
     local lang2 = lname:match("%.([%w_]+)$")
     if lang2 then
       sib_langs[lang2] = true
-      local base_name = lname:sub(1, #lname - #lang2 - 2)
+      -- the capture without its language suffix: `@string.yaml` -> `@string`
+      -- (was `- 2`, one character too many — `@strin` — so no embedded-language
+      -- class found its family and all fell to the sibling's prose tone;
+      -- found 2026-09-30 from limen, yaml frontmatter reading as gray)
+      local base_name = lname:sub(1, #lname - #lang2 - 1)
       local sib = sibling_of(lang2)
       local fam = find_family(base_name, index)
       local r = rng(seed_from(scheme_seed .. "\0" .. lname))
