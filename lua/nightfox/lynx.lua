@@ -125,6 +125,16 @@ local STYLES = {
   ["@markup.link.url"] = "italic,underline",
   ["@string.escape"] = "bold",
   ["@constant.builtin"] = "bold",
+  ["@string.special.symbol.subtype"] = "italic", -- Joseph 2026-11-08 (limen's ‹sub-term›)
+}
+
+-- Identities drawn as a named step from another (Joseph 2026-11-08, limen's
+-- ‹sub-term› beside «term»: "a slightly different color"). Kinship jitter alone
+-- leaves a child within a few degrees of its parent, too close to read as a
+-- different color; the step is a relation, so it holds in every lynx. `hue` in
+-- degrees of the parent; contrast and chroma are the parent's.
+local STEP_FROM = {
+  ["@string.special.symbol.subtype"] = { from = "@string.special.symbol", hue = 26 },
 }
 
 -- Nodes whose P1 values carry backgrounds — untouched in v2:
@@ -369,6 +379,16 @@ function M.generate(spec)
         local dirn = ((mover.c.h - anchor.c.h) % 360 < 180) and 1 or -1
         mover.c.h = (mover.c.h + dirn * (28 - d)) % 360
       end
+    end
+  end
+
+  -- 6.2) identities stepped from another (STEP_FROM), after the separation
+  -- pass so the step is measured from where the parent finally sits
+  for name, st in pairs(STEP_FROM) do
+    local from, p = placed[st.from], placed[name]
+    if from and p then
+      p.c = { h = (from.c.h + st.hue) % 360, C = from.c.C, L = from.c.L }
+      p.target = from.target
     end
   end
 

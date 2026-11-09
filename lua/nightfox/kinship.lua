@@ -67,6 +67,7 @@ n("@string.regexp", "@string", function(c) return { fg = c.syn.regex, style = c.
 n("@string.escape", "@string", function(c) return { fg = c.syn.regex, style = "bold" } end)
 n("@string.special", "@string", "Special")
 n("@string.special.symbol", "@string.special", nil)
+n("@string.special.symbol.subtype", "@string.special.symbol", nil) -- limen: a ‹sub-term›, beside the «term» the parent draws
 n("@string.special.url", "@string.special", function(c) return { fg = c.syn.const, style = "italic,underline" } end)
 n("@string.special.path", "@string.special", nil)
 
